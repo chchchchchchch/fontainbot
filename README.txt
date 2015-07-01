@@ -24,24 +24,24 @@ Grobe Deutschmeister:Peter Wiegel:/grobe-deutschmeister
 Inconsolata:@raphlinus:/inconsolata
 Junicode:Peter S. Baker:/junicode
 Kaushan Script:@pabloimpallari:/kaushan-script
-Lekton::lekton
+Lekton::/lekton
 Libre Caslon Display:@pabloimpallari and @rfuenzalida:/libre-caslon
 Libre Caslon Text:@pabloimpallari and @rfuenzalida:/libre-caslon
 LilGrotesk:@upla0d:/lilgrotesk
 Medio:@sorasagano:/medio
-Neo Euler:@KhaledGhetas:ams-euler
+Neo Euler:@KhaledGhetas:/ams-euler
 Nimbus Sans::/nimbus-sans
 OCRA::/ocr-a
 osifont::/osifont
-Pressuru::pressuru
+Pressuru::/pressuru
 Raleway:@mattmc:/raleway
 Rosario:@OmnibusType:/rosario
 Sean::/sean
 Simple Print::/simple-print
 Source Code Pro:@adobe:/source-code-pro
 Standard Graf::/standard-graf
-TGL::tgl
+TGL::/tgl
 Unna:@OmnibusType:/unna
 Vegur:@sorasagano:/vegur
-Victor's Pixel Font::victors
+Victor's Pixel Font::/victors
 
