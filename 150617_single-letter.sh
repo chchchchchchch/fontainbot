@@ -12,6 +12,13 @@
   TMPTTF=$TMPDIR/tmp.ttf
   TMPSVG=$TMPDIR/tmp.svg
   ISFS="-inkscape-font-specification"
+
+
+# START VIRTUAL XSERVER FOR PROCESSING HEADLESS ----------------------------- #
+# Xvfb :1 -screen 0 1152x900x8 -fbdir /tmp &
+
+# EXPORT DISPLAY FOR PROCESSING HEADLESS ------------------------------------ #
+  export DISPLAY=localhost:1.0
  
 # --------------------------------------------------------------------------- #
 # SELECT A FONT
