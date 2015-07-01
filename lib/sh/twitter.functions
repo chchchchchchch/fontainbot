@@ -1,0 +1,46 @@
+
+ # echo "INITIALISE TWURL"
+
+
+   BASEDIR=`readlink -f $0   | #
+            rev              | #
+            cut -d "/" -f 2- | #
+            rev`
+   ACCOUNT=`find $BASEDIR -name "twitter.account" | #
+            head -n 1`
+   USER=`cat $ACCOUNT  | #
+         grep username | #
+         cut -d ":" -f 2`
+
+   echo $USER
+
+
+# --------------------------------------------------------------------------- #
+  function tweet(){
+  
+    MEDIA=`echo $*         | #
+           rev             | #
+           cut -d " " -f 1 | #
+           rev`
+  
+    if [ `echo $MEDIA               | #
+          egrep ".jpg$|.png$|.gif$" | #
+          wc -l` -gt 0 ]; then
+          TEXT=`echo $* | rev | cut -d " " -f 2- | rev`
+          if [ `echo $*        | #
+                sed 's/ /\n/g' | #
+                wc -l` -gt 1   ]; then
+                echo $TEXT
+                echo $MEDIA
+          else
+                echo $MEDIA
+          fi
+    else
+          TEXT="$*"
+          echo $TEXT
+    fi
+  
+    echo
+  }
+# --------------------------------------------------------------------------- #
+
