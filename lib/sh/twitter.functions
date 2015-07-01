@@ -12,35 +12,44 @@
          grep username | #
          cut -d ":" -f 2`
 
-   echo $USER
+ # echo $USER
 
 
 # --------------------------------------------------------------------------- #
   function tweet(){
   
+    UPDATE="/1.1/statuses/update.json"
+
     MEDIA=`echo $*         | #
            rev             | #
            cut -d " " -f 1 | #
-           rev`
-  
+           rev`  
     if [ `echo $MEDIA               | #
           egrep ".jpg$|.png$|.gif$" | #
           wc -l` -gt 0 ]; then
+
+    MEDIAIDS=`twurl -H upload.twitter.com \
+             "/1.1/media/upload.json"     \
+              -f $MEDIA -F media -X POST  | #
+              sed 's/,/\n/g'              | #
+              tee -a debug.txt            | #
+              grep "media_id_string"      | #
+              cut -d ":" -f 2 | cut -d "\"" -f 2`
+
           TEXT=`echo $* | rev | cut -d " " -f 2- | rev`
           if [ `echo $*        | #
                 sed 's/ /\n/g' | #
                 wc -l` -gt 1   ]; then
-                echo $TEXT
-                echo $MEDIA
+                OPTIONS="media_ids=${MEDIAIDS}&status=${TEXT}"
           else
-                echo $MEDIA
+                OPTIONS="media_ids=${MEDIAIDS}"
           fi
     else
           TEXT="$*"
-          echo $TEXT
+          OPTIONS="status=${TEXT}"
     fi
   
-    echo
+    twurl "$UPDATE" -d "$OPTIONS" > /dev/null 2>&1
   }
 # --------------------------------------------------------------------------- #
 
