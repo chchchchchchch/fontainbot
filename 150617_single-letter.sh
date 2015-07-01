@@ -4,6 +4,7 @@
 # GENERAL ...
 # --------------------------------------------------------------------------- #
   source lib/sh/twitter.functions
+  source lib/sh/headless.functions
 
   TMPDIR=.
   HTML=$TMPDIR/tmp.html
@@ -13,13 +14,6 @@
   TMPSVG=$TMPDIR/tmp.svg
   ISFS="-inkscape-font-specification"
 
-
-# START VIRTUAL XSERVER FOR PROCESSING HEADLESS ----------------------------- #
-# Xvfb :1 -screen 0 1152x900x8 -fbdir /tmp > /dev/null 2>&1 &
-
-# EXPORT DISPLAY FOR PROCESSING HEADLESS ------------------------------------ #
-  export DISPLAY=localhost:1.0
- 
 # --------------------------------------------------------------------------- #
 # SELECT A FONT
 # --------------------------------------------------------------------------- #
@@ -117,7 +111,7 @@
            --min-height=$H \
            --out=$TMPSVG 2> /dev/null
   inkscape --export-plain-svg=tmp.2.svg \
-           $TMPSVG > /dev/null 2>&1
+           $TMPSVG  > /dev/null 2>&1
   mv tmp.2.svg $TMPSVG
 
   sed -i "s/width=\"[^\"]*\"/width=\"$W\"/g"   $TMPSVG
@@ -125,11 +119,12 @@
   sed -i "s/font-family:/${SVGFONTDEF};&/g"    $TMPSVG
 
   inkscape --export-png=${FREEZE}.png \
-           $TMPSVG > /dev/null 2>&1
+           $TMPSVG  > /dev/null 2>&1
 
 # --------------------------------------------------------------------------- #
 # UPLOAD
 # --------------------------------------------------------------------------- #
+  UTFCHAR=`echo $CHARACTER | recode u2/x2..utf-8`
   CHARINFO=`echo $CHARACTER               | #
             recode u2/x2..dump-with-names | # 
             tail -n 1                     | #
@@ -138,10 +133,11 @@
   INFOPLUS=`grep  "$FONTFAMILY" README.txt`
       ATTW=`echo $INFOPLUS | cut -d ":" -f 2`
       if [ `echo $ATTW | wc -c` -gt 1 ]; then
-            ATTW=". #libre #font by $ATTW"; fi
+            ATTW="#librefont $FONTSPEC by $ATTW"; fi
      FHREF=http://fontain.org`echo $INFOPLUS | cut -d ":" -f 3`
 
-  tweet "${FONTSPEC}: $CHARINFO$ATTW -> $FHREF" ${FREEZE}.png
+# echo "$UTFCHAR ($CHARINFO) $ATTW -> $FHREF" ${FREEZE}.png
+  tweet "$UTFCHAR ( $CHARINFO ) →  $ATTW →  $FHREF" ${FREEZE}.png
 
 
 # --------------------------------------------------------------------------- #
