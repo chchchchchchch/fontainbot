@@ -13,6 +13,7 @@
   TMPTTF=$TMPDIR/tmp.ttf
   TMPSVG=$TMPDIR/tmp.svg
   ISFS="-inkscape-font-specification"
+  URLFOO=XXXXXXXXXXXXXXXXXXXXXX
 
 # --------------------------------------------------------------------------- #
 # SELECT A FONT
@@ -122,7 +123,7 @@
            $TMPSVG  > /dev/null 2>&1
 
 # --------------------------------------------------------------------------- #
-# UPLOAD
+# COMPOSE MESSAGE
 # --------------------------------------------------------------------------- #
   UTFCHAR=`echo $CHARACTER | recode u2/x2..utf-8`
   CHARINFO=`echo $CHARACTER               | #
@@ -136,8 +137,36 @@
             ATTW="#librefont $FONTSPEC by $ATTW"; fi
      FHREF=http://fontain.org`echo $INFOPLUS | cut -d ":" -f 3`
 
-# echo "$UTFCHAR ($CHARINFO) $ATTW -> $FHREF" ${FREEZE}.png
-  tweet "$UTFCHAR ( $CHARINFO ) →  $ATTW →  $FHREF" ${FREEZE}.png
+  M1="$UTFCHAR ( $CHARINFO ) →  $ATTW →  $FHREF"
+  M2="$UTFCHAR →  $ATTW →  $FHREF"
+  M3="$UTFCHAR ( $CHARINFO ) →  $FHREF"
+  M4="${FHREF}"
+  M5="$ATTW"
+  MESSAGE=$M1
+  MCHK=`echo $MESSAGE                       | #
+        sed -e "s,http.\?://.* ,$URLFOO ,g" | #
+        wc -c`
+  CNT=1
+  while [ $MCHK -gt 116 ]; do
+          MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5} | #
+                   sed "s/$BRK/\n/g"                           | #
+                   awk '{ print length($0) " " $0; }'          | #
+                   sort -r -n                                  | #
+                   cut -d ' ' -f 2-                            | #
+                   head -n $CNT | tail -n 1`                     # SELECT NEXT
+          MCHK=`echo $MESSAGE                       | #
+                sed -e "s,http.\?://.* ,$URLFOO ,g" | #
+                wc -c`
+          CNT=`expr $CNT + 1`
+          echo $MESSAGE
+          echo $MCHK
+  done
+
+# --------------------------------------------------------------------------- #
+# UPLOAD
+# --------------------------------------------------------------------------- #
+
+  tweet $MESSAGE ${FREEZE}.png
 
 
 # --------------------------------------------------------------------------- #
