@@ -15,7 +15,7 @@
 
 
 # START VIRTUAL XSERVER FOR PROCESSING HEADLESS ----------------------------- #
-# Xvfb :1 -screen 0 1152x900x8 -fbdir /tmp &
+# Xvfb :1 -screen 0 1152x900x8 -fbdir /tmp > /dev/null 2>&1 &
 
 # EXPORT DISPLAY FOR PROCESSING HEADLESS ------------------------------------ #
   export DISPLAY=localhost:1.0
