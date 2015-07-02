@@ -1,5 +1,24 @@
 #!/bin/bash
 
+
+#. 150617_single-letter.sh generates an image of a letter                     #
+#. and posts it to a twitter account                                          #
+
+#.---------------------------------------------------------------------------.#
+#. Copyright (C) 2015 LAFKON/Christoph Haag                                   #
+#.                                                                            #
+#. 150617_single-letter.sh is free software: you can redistribute it and/or   #
+#. modify it under the terms of the GNU General Public License as published   #
+#. by the Free Software Foundation, either version 3 of the License, or       #
+#. (at your option) any later version.                                        #
+#.                                                                            #
+#. 150617_single-letter.sh is distributed in the hope that it will be useful, #
+#. but WITHOUT ANY WARRANTY; without even the implied warranty of             #
+#. MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.                       #
+#. See the GNU General Public License for more details.                       #
+#.                                                                            #
+#.---------------------------------------------------------------------------.
+
 # --------------------------------------------------------------------------- #
 # GENERAL ...
 # --------------------------------------------------------------------------- #
@@ -157,16 +176,16 @@
         wc -c`
   CNT=1
   while [ $MCHK -gt 116 ]; do
-          MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5} | # DISPLAY ALL
-                   sed "s/$BRK/\n/g"                 | # REBREAK
-                   awk '{ print length($0) " " $0; }'| # SHOW LINE LENGTH
-                   sort -r -n                        | # SORT ACCORDING TO LENGTH
-                   cut -d ' ' -f 2-                  | # REMOVE LINE INFO
-                   head -n $CNT | tail -n 1`           # SELECT NEXT
-          MCHK=`echo $MESSAGE                        | # DISPLAY MESSAGE
-                sed -e "s,http.\?://.* ,$URLFOO ,g"  | # REPLACE URL WITH FOO 
-                wc -c`                                 # COUNT CHARACTERS
-          CNT=`expr $CNT + 1`
+    MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5} | # DISPLAY ALL
+             sed "s/$BRK/\n/g"                           | # REBREAK
+             awk '{ print length($0) " " $0; }'          | # SHOW LINE LENGTH
+             sort -r -n                                  | # SORT ACCORDING TO LENGTH
+             cut -d ' ' -f 2-                            | # REMOVE LINE INFO
+             head -n $CNT | tail -n 1`                     # SELECT NEXT
+    MCHK=`echo $MESSAGE                                  | # DISPLAY MESSAGE
+          sed -e "s,http.\?://.* ,$URLFOO ,g"            | # REPLACE URL WITH FOO 
+          wc -c`                                           # COUNT CHARACTERS
+    CNT=`expr $CNT + 1`
   done
           echo $MESSAGE
           echo $MCHK
