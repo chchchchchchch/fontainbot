@@ -131,7 +131,7 @@
             tail -n 1                     | #
             tr -s ' '                     | #
             cut -d " " -f 3-`
-  INFOPLUS=`grep  "$FONTFAMILY" README.txt`
+  INFOPLUS=`grep  "${FONTFAMILY}:" README.txt`
       ATTW=`echo $INFOPLUS | cut -d ":" -f 2`
       if [ `echo $ATTW | wc -c` -gt 1 ]; then
             ATTW="#librefont $FONTSPEC by $ATTW"; fi
