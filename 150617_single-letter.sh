@@ -63,7 +63,13 @@
 # --------------------------------------------------------------------------- #
 # SELECT A CHARACTER (IF EXPORT EXISTS, TRY AGAIN)
 # --------------------------------------------------------------------------- #
-  IDBASE=`echo $FONTSPEC | md5sum | cut -c 1-4``echo $0 | md5sum | cut -c 1-4`
+  IDBASE=`echo $FONTSPEC | # DISPLAY FONT SPECIFICATION
+          md5sum         | # MAKE MD5SUM
+          cut -c 1-4``basename $0     | # DISPLAY BASENAME OF SCRIPT
+                      cut -d "_" -f 2 | # SELECT TYPE NOT DATE
+                      cut -d "." -f 1 | # REMOVE EXTENSION
+                      md5sum          | # MAKE MD5SUM
+                      cut -c 1-4`       # CUT 1 CHARACTERS
   CNT=1
   function selectCharacter(){
     CHARACTER=`cat $NAMLIST            | # ALL AVAILABLE
