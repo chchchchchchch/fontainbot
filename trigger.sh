@@ -5,13 +5,20 @@
 
  if [ `echo $RANDOM | rev | cut -c 1` -ge 3 ]; then
 
-       SLEEPTIME=`expr \`echo $RANDOM | cut -c 1-3\` \/ 2`
+       PROJECTROOT=`readlink -f $0   | #
+                    rev              | #
+                    cut -d "/" -f 2- | #
+                    rev`
+       cd $PROJECTROOT
+       SLEEPTIME=`expr \`echo $RANDOM | cut -c 1-3\` \/ 3`
        echo "powernap for $SLEEPTIME seconds"
-       sleep $SLEEPTIME
+     # sleep $SLEEPTIME
        TRIGGERTHIS=`ls ./*.sh     | #
                     grep -v "$0"  | #
                     shuf -n 1`      #
-       $TRIGGERTHIS
+       echo $TRIGGERTHIS
+     # $TRIGGERTHIS
+       cd - > /dev/null 2>&1
  fi
 
 exit 0;
