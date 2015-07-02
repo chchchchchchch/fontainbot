@@ -27,21 +27,21 @@
 # --------------------------------------------------------------------------- #
 # COLLECT FONT DATA 
 # --------------------------------------------------------------------------- #
-      FONTSRC=`echo $FONTINFO | sed "s/$BRK/\n/g" | #
-               grep "glyphs:" | cut -d ":" -f 2   | #
-               sed 's/ //g'`                        #
-     FONTSPEC=`echo $FONTINFO | sed "s/$BRK/\n/g" | #
-               grep "Font:"   | cut -d ":" -f 2   | #
-               sed 's/ //g'   | sed 's/-/ /g'`      #
+      FONTSRC=`echo $FONTINFO | sed "s/$BRK/\n/g" | # DISPLAY INFO / REBREAK
+               grep "glyphs:" | cut -d ":" -f 2   | # SELECT SRC PATH
+               sed 's/ //g'`                        # REMOVE SPACES
+     FONTSPEC=`echo $FONTINFO | sed "s/$BRK/\n/g" | # DISPLAY INFO / REBREAK
+               grep "Font:"   | cut -d ":" -f 2   | # SELECT SPEC FIELD
+               sed 's/ //g'   | sed 's/-/ /g'`      # FORMATTING
    FONTFAMILY=`echo $FONTINFO | sed "s/$BRK/\n/g" | # DISPLAY + RESTORE BREAKS
-               grep "family:" | cut -d ":" -f 2   | # FIND + CUT FIELD
+               grep "family:" | cut -d ":" -f 2   | # SELECT FAMILY FIELD
                sed 's/^[ \t]*//'`                   # REMOVE LEADING BLANKS
-    FONTSTYLE=`echo $FONTINFO | sed "s/$BRK/\n/g" | #
-               grep "style:"  | cut -d ":" -f 2`    #
-   FONTWEIGHT=`echo $FONTINFO | sed "s/$BRK/\n/g" | #
-               grep "weight:" | cut -d ":" -f 2`    #
-  FONTSTRETCH=`echo $FONTINFO | sed "s/$BRK/\n/g" | #
-               grep "stretch:"| cut -d ":" -f 2`    #
+    FONTSTYLE=`echo $FONTINFO | sed "s/$BRK/\n/g" | # DISPLAY INFO / REBREAK
+               grep "style:"  | cut -d ":" -f 2`    # SELECT STYLE FIELD
+   FONTWEIGHT=`echo $FONTINFO | sed "s/$BRK/\n/g" | # DISPLAY INFO / REBREAK
+               grep "weight:" | cut -d ":" -f 2`    # SELECT WEIGHT FIELD
+  FONTSTRETCH=`echo $FONTINFO | sed "s/$BRK/\n/g" | # DISPLAY INFO / REBREAK
+               grep "stretch:"| cut -d ":" -f 2`    # SELECT STRETCH FIELD
 
    SVGFONTDEF=`echo "font-weight:$FONTWEIGHT;font-stretch:$FONTSTRETCH;\
                      font-style:$FONTSTYLE;" | #
@@ -79,12 +79,15 @@
     NAME=${IDBASE}`echo $CHARACTER | md5sum | cut -c 1-4`
   }
 
+# MAKE SURE CHARACTER HAS NOT BEEN USED
+# --------------------------------------------------------------------------- #
   while [ `ls FREEZE/${NAME}.* 2>/dev/null | wc -l` -gt 0 ] &&
         [ $CNT -le 10 ]
    do
       selectCharacter
       CNT=`expr $CNT + 1`; if [ $CNT -eq 10 ]; then exit 0; fi
   done
+
 
 # --------------------------------------------------------------------------- #
 # WRITE HTML
@@ -132,11 +135,11 @@
 # COMPOSE MESSAGE
 # --------------------------------------------------------------------------- #
   UTFCHAR=`echo $CHARACTER | recode u2/x2..utf-8`
-  CHARINFO=`echo $CHARACTER               | #
-            recode u2/x2..dump-with-names | # 
-            tail -n 1                     | #
-            tr -s ' '                     | #
-            cut -d " " -f 3-`
+  CHARINFO=`echo $CHARACTER               | # SHOW CHARACTER
+            recode u2/x2..dump-with-names | # GET INFO VIA RECODE
+            tail -n 1                     | # SELECT LAST LINE
+            tr -s ' '                     | # SQUEEZE CONSECUTIVE SPACES
+            cut -d " " -f 3-`               # SELECT 3-X FIELD
   INFOPLUS=`grep  "${FONTFAMILY}:" README.txt`
       ATTW=`echo $INFOPLUS | cut -d ":" -f 2`
       if [ `echo $ATTW | wc -c` -gt 1 ]; then
@@ -154,19 +157,19 @@
         wc -c`
   CNT=1
   while [ $MCHK -gt 116 ]; do
-          MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5} | #
-                   sed "s/$BRK/\n/g"                           | #
-                   awk '{ print length($0) " " $0; }'          | #
-                   sort -r -n                                  | #
-                   cut -d ' ' -f 2-                            | #
-                   head -n $CNT | tail -n 1`                     # SELECT NEXT
-          MCHK=`echo $MESSAGE                       | #
-                sed -e "s,http.\?://.* ,$URLFOO ,g" | #
-                wc -c`
+          MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5} | # DISPLAY ALL
+                   sed "s/$BRK/\n/g"                 | # REBREAK
+                   awk '{ print length($0) " " $0; }'| # SHOW LINE LENGTH
+                   sort -r -n                        | # SORT ACCORDING TO LENGTH
+                   cut -d ' ' -f 2-                  | # REMOVE LINE INFO
+                   head -n $CNT | tail -n 1`           # SELECT NEXT
+          MCHK=`echo $MESSAGE                        | # DISPLAY MESSAGE
+                sed -e "s,http.\?://.* ,$URLFOO ,g"  | # REPLACE URL WITH FOO 
+                wc -c`                                 # COUNT CHARACTERS
           CNT=`expr $CNT + 1`
+  done
           echo $MESSAGE
           echo $MCHK
-  done
 
 # --------------------------------------------------------------------------- #
 # UPLOAD
