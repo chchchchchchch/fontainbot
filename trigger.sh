@@ -13,7 +13,7 @@
        SLEEPTIME=`expr \`echo $RANDOM | # DISPLAY RANDOM NUM
                   cut -c 1-3\` \/ 3`    # 3 DIGITS, DIVIDE
        TIME=`date "+%d.%m.%Y %T"`
-       echo "It's $TIME. Powernap for $SLEEPTIME seconds"
+       echo "$TIME. Powernap for $SLEEPTIME seconds."
        sleep $SLEEPTIME
        SELF=`basename $0`
        TRIGGERTHIS=`ls ./*.sh     | # LIST ALL SCRIPTS
