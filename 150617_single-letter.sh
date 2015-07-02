@@ -76,7 +76,7 @@
 # --------------------------------------------------------------------------- #
 # MAKE A LIST OF AVAILABLE CHARACTERS
 # --------------------------------------------------------------------------- #
-  NAMLIST=$TMPDIR/tmp.nam
+  NAMLIST=$TMPDIR/$TMPID.nam
   python -c "import $FF;$FF.open(\"$FONTSRC\").saveNamelist(\"$NAMLIST\")" \
   > /dev/null 2>&1
   
