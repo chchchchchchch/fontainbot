@@ -26,11 +26,12 @@
   source lib/sh/headless.functions
 
   TMPDIR=.
-  HTML=$TMPDIR/tmp.html
+  TMPID=$RANDOM
+  HTML=$TMPDIR/$TMPID.html
   FF=fontforge
   BRK=$RANDOM
-  TMPTTF=$TMPDIR/tmp.ttf
-  TMPSVG=$TMPDIR/tmp.svg
+  TMPTTF=$TMPDIR/$TMPID.ttf
+  TMPSVG=$TMPDIR/$TMPID.svg
   ISFS="-inkscape-font-specification"
   URLFOO=XXXXXXXXXXXXXXXXXXXXXX
 
@@ -200,7 +201,7 @@
 # --------------------------------------------------------------------------- #
 # CLEAN UP
 # --------------------------------------------------------------------------- #
-  rm $TMPDIR/tmp.*
+  rm $TMPDIR/$TMPID.*
 
 
 exit 0;
