@@ -32,7 +32,6 @@
              "/1.1/media/upload.json"     \
               -f $MEDIA -F media -X POST  | #
               sed 's/,/\n/g'              | #
-              tee -a debug.txt            | #
               grep "media_id_string"      | #
               cut -d ":" -f 2 | cut -d "\"" -f 2`
 
