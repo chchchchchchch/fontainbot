@@ -11,7 +11,8 @@
                     rev`               # REVERT
        cd $PROJECTROOT
        SLEEPTIME=`expr \`echo $RANDOM | # DISPLAY RANDOM NUM
-                  cut -c 1-3\` \/ 3`    # 3 DIGITS, DIVIDE
+                  rev                 | # FROM BACK
+                  cut -c 1-4\` \/ 20`   # 3 DIGITS, DIVIDE
        TIME=`date "+%d.%m.%Y %T"`
        echo "$TIME. Powernap for $SLEEPTIME seconds."
        sleep $SLEEPTIME
