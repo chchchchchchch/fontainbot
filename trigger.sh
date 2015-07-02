@@ -5,7 +5,9 @@
 
  if [ `echo $RANDOM | rev | cut -c 1` -ge 3 ]; then
 
-       sleep `expr \`echo $RANDOM | cut -c 1-3\` \/ 2`
+       SLEEPTIME=`expr \`echo $RANDOM | cut -c 1-3\` \/ 2`
+       echo "powernap for $SLEEPTIME seconds"
+       sleep $SLEEPTIME
        TRIGGERTHIS=`ls ./*.sh     | #
                     grep -v "$0"  | #
                     shuf -n 1`      #
