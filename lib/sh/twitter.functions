@@ -48,7 +48,7 @@
           OPTIONS="status=${TEXT}"
     fi
   
-    twurl "$UPDATE" -d "$OPTIONS"  # > /dev/null 2>&1
+    twurl "$UPDATE" -d "$OPTIONS"  > /dev/null 2>&1
   }
 # --------------------------------------------------------------------------- #
 

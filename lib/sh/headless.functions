@@ -3,9 +3,10 @@
 
  if [ `echo $DISPLAY | wc -c` -gt 1 ]; then
 
-       echo "not headless"
+     # echo "not headless"
+       sleep 0
  else
-       echo "headless"
+     # echo "headless"
 
    if [ `ps aux       | #
          grep Xvfb    | #
@@ -13,8 +14,8 @@
          wc -l` -gt 0 ]; then
          export DISPLAY=localhost:1.0
    else
-         echo "sorry. neither real nor virtual X"
-         exit 0;
+      # echo "sorry. neither real nor virtual X"
+        exit 0;
    fi
  fi
 
