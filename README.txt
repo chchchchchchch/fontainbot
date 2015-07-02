@@ -19,7 +19,7 @@ Comic Neue:@craigrozynski:/comic-neue
 Comic Neue Angular:@craigrozynski:/comic-neue
 Dancing Script:@pabloimpallari:/dancing-script
 Fira Code:@nikitonsky:/fira-code
-Fira Sans:@espiekermann and @RalphduCarrois and Anja Meiners and Botio Nikoltchev for @mozilla:/fira-sans
+Fira Sans:@espiekermann, @RalphduCarrois, Anja Meiners and Botio Nikoltchev for @mozilla:/fira-sans
 Grobe Deutschmeister:Peter Wiegel:/grobe-deutschmeister
 Inconsolata:@raphlinus:/inconsolata
 Junicode:Peter S. Baker:/junicode
