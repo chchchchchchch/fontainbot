@@ -26,7 +26,7 @@
   source lib/sh/headless.functions
 
   TMPDIR=.
-  TMPID=$RANDOM
+  TMPID=TMP$RANDOM
   HTML=$TMPDIR/$TMPID.html
   FF=fontforge
   BRK=$RANDOM
