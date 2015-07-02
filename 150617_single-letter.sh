@@ -187,7 +187,7 @@
           wc -c`                                           # COUNT CHARACTERS
     CNT=`expr $CNT + 1`
   done
-        # echo $MESSAGE
+        echo $MESSAGE
         # echo $MCHK
 
 # --------------------------------------------------------------------------- #
