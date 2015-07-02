@@ -135,11 +135,11 @@
       ATTW=`echo $INFOPLUS | cut -d ":" -f 2`
       if [ `echo $ATTW | wc -c` -gt 1 ]; then
             ATTW="#librefont $FONTSPEC by $ATTW"; fi
-     FHREF=http://fontain.org`echo $INFOPLUS | cut -d ":" -f 3`
+     FHREF="→ http://fontain.org"`echo $INFOPLUS | cut -d ":" -f 3`
 
-  M1="$UTFCHAR ( $CHARINFO ) →  $ATTW →  $FHREF"
-  M2="$UTFCHAR →  $ATTW →  $FHREF"
-  M3="$UTFCHAR ( $CHARINFO ) →  $FHREF"
+  M1="$UTFCHAR ( $CHARINFO ) →  $ATTW $FHREF"
+  M2="$UTFCHAR →  $ATTW $FHREF"
+  M3="$UTFCHAR ( $CHARINFO ) $FHREF"
   M4="${FHREF}"
   M5="$ATTW"
   MESSAGE=$M1
