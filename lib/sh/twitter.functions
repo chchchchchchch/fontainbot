@@ -28,8 +28,8 @@
           egrep ".jpg$|.png$|.gif$" | #
           wc -l` -gt 0 ]; then
 
-    MEDIAIDS=`twurl -H upload.twitter.com \
-             "/1.1/media/upload.json"     \
+    MEDIAIDS=`$TWURL -H upload.twitter.com \
+             "/1.1/media/upload.json"       \
               -f $MEDIA -F media -X POST  | #
               sed 's/,/\n/g'              | #
               grep "media_id_string"      | #
