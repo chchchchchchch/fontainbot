@@ -30,7 +30,7 @@ Libre Caslon Text:@pabloimpallari and @rfuenzalida:/libre-caslon
 LilGrotesk:@upla0d:/lilgrotesk
 Medio:@sorasagano:/medio
 Neo Euler:@KhaledGhetas:/ams-euler
-Nimbus Sans::/nimbus-sans
+Nimbus Sans::/nimbus-sans-l
 OCRA::/ocr-a
 osifont::/osifont
 Pressuru::/pressuru
