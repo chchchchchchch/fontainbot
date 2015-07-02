@@ -12,7 +12,8 @@
        cd $PROJECTROOT
        SLEEPTIME=`expr \`echo $RANDOM | # DISPLAY RANDOM NUM
                   cut -c 1-3\` \/ 3`    # 3 DIGITS, DIVIDE
-       echo "powernap for $SLEEPTIME seconds"
+       TIME=`date "+%d.%m.%Y %T"`
+       echo "It's $TIME. Powernap for $SLEEPTIME seconds"
        sleep $SLEEPTIME
        SELF=`basename $0`
        TRIGGERTHIS=`ls ./*.sh     | # LIST ALL SCRIPTS
@@ -21,6 +22,7 @@
        echo $TRIGGERTHIS
        $TRIGGERTHIS
        cd - > /dev/null 2>&1
+       echo
  fi
 
 exit 0;
