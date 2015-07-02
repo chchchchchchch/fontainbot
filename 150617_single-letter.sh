@@ -90,8 +90,8 @@
   echo "border-right: 2px solid #000000;}"                           >> $HTML
   echo "@font-face  { font-family:'thefont';"                        >> $HTML
   echo "src:url('$TMPTTF')format('truetype');"                       >> $HTML
-  echo "}table{width:100%;height:90%;"                               >> $HTML
-  echo "font-family:'thefont';font-size:250px;}"                     >> $HTML
+  echo "}table{width:100%;height:95%;"                               >> $HTML
+  echo "font-family:'thefont';font-size:200px;}"                     >> $HTML
   echo "table.letter{height:0px;}"                                   >> $HTML
   echo "</style></head><body><table><tr>"                            >> $HTML
   echo "<td valign=\"middle\">"                                      >> $HTML
