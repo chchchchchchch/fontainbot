@@ -90,7 +90,7 @@
                       cut -d "." -f 1 | # REMOVE EXTENSION
                       md5sum          | # MAKE MD5SUM
                       cut -c 1-4`       # CUT 1 CHARACTERS
-  CNT=1
+
   function selectCharacter(){
     CHARACTER=`cat $NAMLIST            | # ALL AVAILABLE
                grep -v 0020            | # NO SPACE
@@ -101,8 +101,8 @@
 
 # MAKE SURE CHARACTER HAS NOT BEEN USED
 # --------------------------------------------------------------------------- #
-  while [ `ls FREEZE/${NAME}.* 2>/dev/null | wc -l` -gt 0 ] &&
-        [ $CNT -le 10 ]
+  CNT=1; while [ `ls FREEZE/${NAME}.* 2>/dev/null | wc -l` -gt 0 ] &&
+               [ $CNT -le 10 ]
    do
       selectCharacter
       CNT=`expr $CNT + 1`; if [ $CNT -eq 10 ]; then exit 0; fi
