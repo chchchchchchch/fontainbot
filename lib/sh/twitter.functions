@@ -48,7 +48,8 @@
           OPTIONS="status=${TEXT}"
     fi
   
-    $TWURL "$UPDATE" -d "$OPTIONS"  > /dev/null 2>&1
+  # $TWURL "$UPDATE" -d "$OPTIONS"  > /dev/null 2>&1
+    $TWURL "$UPDATE" -d "$OPTIONS"  | grep '"errors":'
   }
 # --------------------------------------------------------------------------- #
 
