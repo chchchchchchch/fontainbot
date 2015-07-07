@@ -1,0 +1,105 @@
+This package was debianized by Roland Rosenfeld <roland@debian.org> on
+Sat, 31 Jul 1999 16:31:45 +0200.
+
+It was downloaded from
+https://www.j3e.de/ispell/igerman98/dict/igerman98-20131206.tar.bz2
+
+Upstream Author: Björn Jacke <bjoern@j3e.de>
+
+Parts of aspell are imported from the former aspell-de package,
+debianized by Domenico Andreoli <cavok@debian.org> and lateron
+maintained by Christoph Berg <cb@df7cb.de>.  These parts were
+downloaded from http://aspell.sourceforge.net and have the upstream
+author Kevin Atkinson <kevina@users.sourceforge.net>.
+
+Copyright:
+
+igerman98 - dictionaries for German language
+Copyright (C) 1999-2011 Björn Jacke <bjoern@j3e.de>.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License version 2 or 3 as
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software Foundation,
+    Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+
+You can find the GPL under /usr/share/common-licenses/GPL-2 and
+/usr/share/common-licenses/GPL-3.
+
+
+
+The hunspell dictionary releases are dual-licensed, the alternative
+license is the OASIS distribution license agreement, which can be
+found here:
+
+OASIS distribution license agreement 0.1 from 2005-11-10
+
+Without any modifications this dictionary may be distributed with programs that
+support the OASIS Open Document Format for Office Applications and whose
+PRIMARY format for saving documents is the Open Document Format.
+
+This requires that all licenses and copyright files are also
+distributed together with the package the dictionary is shipped with.
+
+Any modifications of the dictionary files are not allowed for this
+agreement, modifications require the use of the GNU GENERAL PUBLIC LICENSE.
+
+If you have questions or don't get along with this, send me your
+comments/questions/ideas to Bjoern Jacke <bjoern@j3e.de>
+
+
+
+
+The affix file carries the following copyright:
+
+# This file has been heavily changed by Björn Jacke to fit the affixes
+# used in the German dictionary igerman98. You can assume almost every line
+# as changed, seen from the original version from Geoff Kuenning. So
+# it was not worth marking them all as changes.
+#
+# Copyright 1988, 1989, 1992, 1993, Geoff Kuenning, Granada Hills, CA
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+#
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+# 3. All modifications to the source code must be clearly marked as
+#    such.  Binary redistributions based on modified source code
+#    must be clearly marked as modified versions in the documentation
+#    and/or other materials provided with the distribution.
+# 4. All advertising materials mentioning features or use of this software
+#    must display the following acknowledgment:
+#      This product includes software developed by Geoff Kuenning and
+#      other unpaid contributors.
+# 5. The name of Geoff Kuenning may not be used to endorse or promote
+#    products derived from this software without specific prior
+#    written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY GEOFF KUENNING AND CONTRIBUTORS ``AS IS'' AND
+# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED.  IN NO EVENT SHALL GEOFF KUENNING OR CONTRIBUTORS BE LIABLE
+# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+# SUCH DAMAGE.
+
+
+The aspell changes in debian/patches/15_aspell.dpatch are licensed
+unter the GPL, which can be found in /usr/share/common-licenses/GPL-2.

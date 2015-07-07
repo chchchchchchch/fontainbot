@@ -1,0 +1,35 @@
+This package was debianized by Agustín Martín Domingo <agmartin@debian.org> on
+Mon, 24 Jun 2002 19:32:36 +0200.
+
+It was downloaded from
+
+  http://prdownloads.sourceforge.net/i/is/ispell-gl/ispell-gl-0.5.tar.gz
+
+Upstream Authors:
+
+  André Ventas and Ramón Flores <fa2ramon@usc.es>,
+
+galician_phonet.dat and gl_ES.replaces by Ramón Flores,
+
+Copyright 2001-2006 André Ventas & Ramón Flores
+
+ This program is free software; you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as
+ published by the Free Software Foundation; either version 2,
+ or (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful, but
+ WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ General Public License for more details.
+
+Debian packaging copyright:
+
+ Changes by Agustin Martin are Copyright 2002-2014 Agustin Martin
+ and may be redistributed and/or modified under the terms of the
+ GNU General Public License (GPL) as published by the Free
+ Software Foundation; either version 2 of the License, or (at
+ your option) any later version.
+
+On Debian systems, the complete text of the GNU General Public License,
+version 2, can be found in `/usr/share/common-licenses/GPL-2'.

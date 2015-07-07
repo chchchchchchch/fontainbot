@@ -1,0 +1,28 @@
+This package was debianized by Stig Sandbeck Mathisen ssm@debian.org on
+Fri, 12 Jun 1998 00:38:53 +0200.
+
+It can be downloaded from http://alioth.debian.org/projects/spell-norwegian/
+
+# Copyright (C) 2000, Rune Kleveland, 2005-2006 the spell-norwegian
+# maintainers
+#
+# Maintainer: The spell-norwegian maintainer group
+# Email : i18n-no@lister.ping.uio.no
+# License : GNU General Public License
+#
+# This file is free software; you can redistribute it and/or modify it
+# under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+# 
+# This file is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+A copy of the GNU General Public License is available as
+/usr/share/common-licenses/GPL in the Debian GNU/Linux distribution or
+on the World Wide Web at http://www.gnu.org/copyleft/gpl.html.  You
+can also obtain it by writing to the Free Software Foundation, Inc.,
+51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+
