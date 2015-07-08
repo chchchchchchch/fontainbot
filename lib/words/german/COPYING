@@ -1,3 +1,18 @@
+        Copyright (C) 1998-2011 Bjoern Jacke <bjoern@j3e.de>
+        GPL modifications of this dictionary should be made public as a patch
+        GPL. This dictionary is compiled from igerman98. For the purpose of the
+        License: GPLv2, GPLv3 or OASIS distribution license agreement There
+        This is the dictionary file of the de_AT Myspell dictionary
+        This is the dictionary file of the de_CH Myspell dictionary
+        This is the dictionary file of the de_DE Myspell dictionary
+        Version: 20120607 (build 20120607)
+        derived from the igerman98 dictionary
+        for igerman98 allowing to regenerate the modified dictionary.
+        of this dictionary. Modified versions using the GPL may only include the
+        should be a copy of all of this licenses included with every distribution
+
+----
+
 This package was debianized by Roland Rosenfeld <roland@debian.org> on
 Sat, 31 Jul 1999 16:31:45 +0200.
 
