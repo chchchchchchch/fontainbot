@@ -26,14 +26,16 @@
   source lib/sh/headless.functions
 
   TMPDIR=.
+  FF=fontforge
+  WORDS="lib/words/*/*.txt"
+  BRK=$RANDOM
   TMPID=TMP$RANDOM
   HTML=$TMPDIR/$TMPID.html
-  FF=fontforge
-  BRK=$RANDOM
   TMPTTF=$TMPDIR/$TMPID.ttf
   TMPSVG=$TMPDIR/$TMPID.svg
   ISFS="-inkscape-font-specification"
   URLFOO=XXXXXXXXXXXXXXXXXXXXXX
+  HSHFOO=
 
 # --------------------------------------------------------------------------- #
 # SELECT A FONT
@@ -93,8 +95,7 @@
 
   function selectCharacter(){
     CHARACTER=`cat $NAMLIST            | # ALL AVAILABLE
-               grep -v 0020            | # NO SPACE
-               grep "x[0-9][0-9][0-9]" | # CERTAIN RANGE ONLY
+               grep -v 0020            | # IGNORE SPACE
                shuf -n 1`                # RANDOM ONE
     NAME=${IDBASE}`echo $CHARACTER | md5sum | cut -c 1-4`
   }
@@ -113,14 +114,15 @@
 # WRITE HTML
 # --------------------------------------------------------------------------- #
   echo "<html><head><style>"                                         >  $HTML
-  echo "body { background-color:#DDDDDD;"                            >> $HTML
+  echo "body { background-color:#FFFFFF;"                            >> $HTML
   echo "margin: 0px 0px 0px 0px;"                                    >> $HTML
   echo "border-left:  2px solid #000000;"                            >> $HTML
   echo "border-right: 2px solid #000000;}"                           >> $HTML
   echo "@font-face  { font-family:'thefont';"                        >> $HTML
   echo "src:url('$TMPTTF')format('truetype');"                       >> $HTML
   echo "}table{width:100%;height:100%;"                              >> $HTML
-  echo "font-family:'thefont';font-size:180px;}"                     >> $HTML
+  echo "font-family:'thefont';font-size:180px;"                      >> $HTML
+  echo "color:#000000;}"                                             >> $HTML
   echo "table.letter{height:0px;}"                                   >> $HTML
   echo "</style></head><body><table><tr>"                            >> $HTML
   echo "<td valign=\"middle\">"                                      >> $HTML
@@ -159,38 +161,65 @@
             recode u2/x2..dump-with-names | # GET INFO VIA RECODE
             tail -n 1                     | # SELECT LAST LINE
             tr -s ' '                     | # SQUEEZE CONSECUTIVE SPACES
-            cut -d " " -f 3-`               # SELECT 3-X FIELD
+            cut -d " " -f 3-              | # SELECT 3-X FIELD
+            sed 's/(.*)//'`                 # REMOVE BETWEEN BRACKETS
+  HASHINFO=`echo $CHARINFO | sed 's/^[ \t]*/#/' | sed 's/ / #/g'`
+  HASHSPEC=`echo $FONTSPEC | sed 's/^[ \t]*/#/' | sed 's/ / #/g'`
   INFOPLUS=`grep  "${FONTFAMILY}:" README.txt`
-      ATTW=`echo $INFOPLUS | cut -d ":" -f 2`
-      if [ `echo $ATTW | wc -c` -gt 1 ]; then
-            ATTW="#librefont $FONTSPEC by $ATTW"; fi
-     FHREF="→ http://fontain.org"`echo $INFOPLUS | cut -d ":" -f 3`
+    FHREF1="http://fontain.org"`echo $INFOPLUS | cut -d ":" -f 3`
+     SHREF="http://"`echo $INFOPLUS | cut -d ":" -f 5`
+    AUTHOR=`echo $INFOPLUS | cut -d ":" -f 4`
+         A=`echo -e "→ \n[>]\n—\n|→ \n|\n//" | shuf -n 1`  
 
-  M1="$UTFCHAR ( $CHARINFO ) →  $ATTW $FHREF"
-  M2="$UTFCHAR →  $ATTW $FHREF"
-  M3="$UTFCHAR ( $CHARINFO ) $FHREF"
-  M4="${FHREF}"
-  M5="$ATTW"
-  MESSAGE=$M1
-  MCHK=`echo $MESSAGE                       | #
-        sed -e "s,http.\?://.* ,$URLFOO ,g" | #
-        wc -c`
-  CNT=1
+  WORD=`grep -h "^$UTFCHAR" $WORDS | #
+        grep -v [0-9]           | #
+        grep -v [[:punct:]]     | #
+        shuf -n 1`
+
+  if [ `echo $WORD | wc -c` -lt 1 ]; then
+  WORD=`grep -h "$UTFCHAR" $WORDS | #
+        grep -v [0-9]             | #
+        grep -v [[:punct:]]       | #
+        shuf -n 1`
+  else
+  FHREF2="$FHREF1/#${WORD}"
+  M4="${HASHSPEC} by $AUTHOR ($UTFCHAR)"
+  M5="${UTFCHAR} like $WORD $A #librefont  $FONTSPEC"
+  M6="${UTFCHAR} like #$WORD $A  $FONTSPEC $A $FHREF2"
+  fi
+  if [ `echo $WORD | wc -c` -gt 1 ]; then
+  FHREF2="$FHREF1/#${WORD}"
+  else
+   if [ `echo $UTFCHAR | grep -v [[:punct:]] | wc -c` -gt 0 ]; then
+   FHREF2="$FHREF1/#"`printf "$UTFCHAR%.0s" {1..20}`
+   M5="${UTFCHAR}  $A   $FHREF2"
+   M6="#${UTFCHAR} ($CHARINFO) $A $FHREF2"
+   else
+   FHREF2="${FHREF1}/#@"$((RANDOM%190+60))
+   M4="$UTFCHAR $A #librefont ${FONTSPEC} by $AUTHOR ($SHREF)"
+   M5=`printf "$UTFCHAR%.0s" {1..20}`" $A $HASHSPEC"
+   M6=`printf "$UTFCHAR%.0s" {1..30}`" ($CHARINFO) $A $FONTSPEC"
+   fi
+  fi
+  M1="${FONTSPEC} $A $UTFCHAR ($CHARINFO) $A $FHREF2"
+  M2="$UTFCHAR ($HASHINFO) $A  $FONTSPEC"
+  M3="$UTFCHAR $A $FONTSPEC $A  $FHREF2"
+
+# --------------------------------------------------------------------------- #
+# SELECT MESSAGE
+# --------------------------------------------------------------------------- #
+  MCHK=200; CNT=1
   while [ $MCHK -gt 116 ]; do
-    MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5} | # DISPLAY ALL
-             sed "s/$BRK/\n/g"                           | # REBREAK
-             awk '{ print length($0) " " $0; }'          | # SHOW LINE LENGTH
-             sort -r -n                                  | # SORT ACCORDING TO LENGTH
-             cut -d ' ' -f 2-                            | # REMOVE LINE INFO
-             head -n $CNT | tail -n 1`                     # SELECT NEXT
-    MCHK=`echo $MESSAGE                                  | # DISPLAY MESSAGE
-          sed -e "s,http.\?://.* ,$URLFOO ,g"            | # REPLACE URL WITH FOO 
-          wc -c`                                           # COUNT CHARACTERS
-    CNT=`expr $CNT + 1`
+   MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5}${BRK}${M6}${BRK}${M1} | #
+            sed "s/$BRK/\n/g"                           | # REBREAK
+            shuf -n 1`                                    # SELECT RANDOM
+   MCHK=`echo $MESSAGE                                  | # DISPLAY MESSAGE
+         sed -e "s,http.\?://.* ,$URLFOO ,g"            | # REPLACE URL WITH FOO 
+         wc -c`                                           # COUNT CHARACTERS
+       echo $MCHK
+   CNT=`expr $CNT + 1`
   done
-        echo ${MESSAGE}
-        echo ${FREEZE}.png
-        # echo $MCHK
+        echo $WORD ; echo "${MESSAGE}" ; echo ${FREEZE}.png
 
 # --------------------------------------------------------------------------- #
 # UPLOAD
