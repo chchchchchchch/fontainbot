@@ -49,8 +49,13 @@
     fi
   
   # $TWURL "$UPDATE" -d "$OPTIONS"  > /dev/null 2>&1
-    $TWURL "$UPDATE" -d "$OPTIONS"  | grep '"errors":'
-  # ADD DELETE MEDIA WHEN ERROR!!!
+    TWEET=`$TWURL "$UPDATE" -d "$OPTIONS"`
+
+    if [ `echo $TWEET | grep '"errors":' | wc -l` -gt 0 ]
+     then
+          echo "There was an error. Deleting $MEDIA"
+          rm $MEDIA
+    fi
 
   }
 # --------------------------------------------------------------------------- #
