@@ -216,10 +216,10 @@
    MCHK=`echo $MESSAGE                                  | # DISPLAY MESSAGE
          sed -e "s,http.\?://.* ,$URLFOO ,g"            | # REPLACE URL WITH FOO 
          wc -c`                                           # COUNT CHARACTERS
-       echo $MCHK
    CNT=`expr $CNT + 1`
   done
-        echo $WORD ; echo "${MESSAGE}" ; echo ${FREEZE}.png
+        echo "WORD: $WORD"
+        echo "${MESSAGE}"; echo ${FREEZE}.png
 
 # --------------------------------------------------------------------------- #
 # UPLOAD
