@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-#. 150617_single-letter.sh generates an image of a letter                     #
-#. and posts it to a twitter account                                          #
+#. 150617_single-letter.sh generates an image                                 #
+#. of a letter and posts it to a twitter account                              #
 
 #.---------------------------------------------------------------------------.#
 #. Copyright (C) 2015 LAFKON/Christoph Haag                                   #
@@ -35,7 +35,6 @@
   TMPSVG=$TMPDIR/$TMPID.svg
   ISFS="-inkscape-font-specification"
   URLFOO=XXXXXXXXXXXXXXXXXXXXXX
-  HSHFOO=
 
 # --------------------------------------------------------------------------- #
 # SELECT A FONT
@@ -100,15 +99,19 @@
     NAME=${IDBASE}`echo $CHARACTER | md5sum | cut -c 1-4`
   }
 
+# --------------------------------------------------------------------------- #
 # MAKE SURE CHARACTER HAS NOT BEEN USED
 # --------------------------------------------------------------------------- #
   CNT=1; while [ `ls FREEZE/${NAME}.* 2>/dev/null | wc -l` -gt 0 ] &&
-               [ $CNT -le 10 ]
+               [ $CNT -le 500 ]
    do
       selectCharacter
-      CNT=`expr $CNT + 1`; if [ $CNT -eq 10 ]; then exit 0; fi
+      CNT=`expr $CNT + 1`
+      if [ $CNT -eq 500 ]; then
+           echo "everthing used"
+           exit 0;
+      fi
   done
-
 
 # --------------------------------------------------------------------------- #
 # WRITE HTML
@@ -171,24 +174,24 @@
     AUTHOR=`echo $INFOPLUS | cut -d ":" -f 4`
          A=`echo -e "→ \n[>]\n—\n|→ \n|\n//" | shuf -n 1`  
 
-  WORD=`grep -h "^$UTFCHAR" $WORDS | #
-        grep -v [0-9]           | #
-        grep -v [[:punct:]]     | #
-        shuf -n 1`
+  WORD=`grep -h "^$UTFCHAR" $WORDS | # FIND WORD STARTING WITH CHARACTER
+        grep -v [0-9]              | # REMOVE IF THERE ARE NUMBERS
+        grep -v [[:punct:]]        | # REMOVE IF THERE ARE NON LETTERS
+        shuf -n 1`                   # SELECT RANDOM LINE
 
   if [ `echo $WORD | wc -c` -lt 1 ]; then
-  WORD=`grep -h "$UTFCHAR" $WORDS | #
-        grep -v [0-9]             | #
-        grep -v [[:punct:]]       | #
-        shuf -n 1`
+  WORD=`grep -h "$UTFCHAR" $WORDS | # FIND WORD CONTAINING CHARACTER
+        grep -v [0-9]             | # REMOVE IF THERE ARE NUMBERS
+        grep -v [[:punct:]]       | # REMOVE IF THERE ARE NON LETTERS
+        shuf -n 1`                  # SELECT RANDOM LINE
   else
-  FHREF2="$FHREF1/#${WORD}"
-  M4="${HASHSPEC} by $AUTHOR ($UTFCHAR)"
-  M5="${UTFCHAR} like $WORD $A #librefont  $FONTSPEC"
-  M6="${UTFCHAR} like #$WORD $A  $FONTSPEC $A $FHREF2"
+   FHREF2="$FHREF1/#${WORD}"
+   M4="${HASHSPEC} by $AUTHOR ($UTFCHAR)"
+   M5="${UTFCHAR} like $WORD $A #librefont  $FONTSPEC"
+   M6="${UTFCHAR} like #$WORD $A  $FONTSPEC $A $FHREF2"
   fi
   if [ `echo $WORD | wc -c` -gt 1 ]; then
-  FHREF2="$FHREF1/#${WORD}"
+   FHREF2="$FHREF1/#${WORD}"
   else
    if [ `echo $UTFCHAR | grep -v [[:punct:]] | wc -c` -gt 0 ]; then
    FHREF2="$FHREF1/#"`printf "$UTFCHAR%.0s" {1..20}`
@@ -225,7 +228,7 @@
 # UPLOAD
 # --------------------------------------------------------------------------- #
 
-  tweet $MESSAGE ${FREEZE}.png
+# tweet $MESSAGE ${FREEZE}.png
 
 
 # --------------------------------------------------------------------------- #
