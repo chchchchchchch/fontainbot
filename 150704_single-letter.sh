@@ -119,7 +119,7 @@
       fi
   done
 
-  echo "tried $((CNT - 1)) character(s)"
+  echo "TRIED:  $((CNT - 1)) character(s)"
 
 # --------------------------------------------------------------------------- #
 # SELECT COLORS
@@ -237,10 +237,11 @@
          wc -c`                                           # COUNT CHARACTERS
    CNT=`expr $CNT + 1`
   done
-        echo "$UTFCHAR ($CHARINFO)"
-        echo "FONT:  $FONTSPEC"
-        echo "WORD:  $WORD"
-        echo "TWEET: ${MESSAGE}; ${FREEZE}.png"
+        echo "CHAR:   $UTFCHAR ($CHARINFO)"
+        echo "FONT:   $FONTSPEC"
+        echo "WORD:   $WORD"
+        echo "TWEET:  ${MESSAGE};"
+        echo "MEDIA:  ${FREEZE}.png"
 
 # --------------------------------------------------------------------------- #
 # UPLOAD

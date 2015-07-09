@@ -12,17 +12,17 @@
        cd $PROJECTROOT
        SLEEPTIME=`expr \`echo $RANDOM | # DISPLAY RANDOM NUM
                   rev                 | # FROM BACK
-                  cut -c 1-4\` \/ 20`   # 4 DIGITS, DIVIDE
+                  cut -c 1-4\` \/ 30`   # 4 DIGITS, DIVIDE
 
-       echo "Powernap for $SLEEPTIME seconds."
+       echo "DELAY:  ${SLEEPTIME}s"
        sleep $SLEEPTIME
        TIME=`date "+%d.%m.%Y %T"`
-       echo $TIME
+       echo "TIME:   $TIME"
        SELF=`basename $0`
-       TRIGGERTHIS=`ls ./*.sh     | # LIST ALL SCRIPTS
+       TRIGGERTHIS=`ls ./1*.sh    | # LIST ALL SCRIPTS
                     grep -v $SELF | # IGNORE YOURSELF
                     shuf -n 1`      # SELECT ONE RANDOM
-       echo $TRIGGERTHIS
+       echo "SCRIPT: "`basename $TRIGGERTHIS`
        $TRIGGERTHIS
        cd - > /dev/null 2>&1
        echo
