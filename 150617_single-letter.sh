@@ -222,8 +222,9 @@
    CNT=`expr $CNT + 1`
   done
         echo "$UTFCHAR ($CHARINFO)"
-        echo "WORD: $WORD"
-        echo "${MESSAGE}"; echo ${FREEZE}.png
+        echo "FONT:  $FONTSPEC"
+        echo "WORD:  $WORD"
+        echo "TWEET: ${MESSAGE}; ${FREEZE}.png"
 
 # --------------------------------------------------------------------------- #
 # UPLOAD
