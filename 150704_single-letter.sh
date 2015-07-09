@@ -94,9 +94,14 @@
                       cut -c 1-4`       # CUT 1 CHARACTERS
 
   function selectCharacter(){
+  # CHARACTER=`cat $NAMLIST            | # ALL AVAILABLE
+  #            grep -v 0020            | # IGNORE SPACE
+  #            shuf -n 1`                # RANDOM ONE
     CHARACTER=`cat $NAMLIST            | # ALL AVAILABLE
                grep -v 0020            | # IGNORE SPACE
-               shuf -n 1`                # RANDOM ONE
+               shuf                    | # RANDOMIZE
+               head -n $CNT            | # SHIFT THROUGH
+               tail -n 1`                # SHIFT THROUGH
     NAME=${IDBASE}`echo $CHARACTER | md5sum | cut -c 1-4`
   }
 
@@ -104,15 +109,17 @@
 # MAKE SURE CHARACTER HAS NOT BEEN USED
 # --------------------------------------------------------------------------- #
   CNT=1; while [ `ls FREEZE/${NAME}.* 2>/dev/null | wc -l` -gt 0 ] &&
-               [ $CNT -le 500 ]
+               [ $CNT -le 1000 ]
    do
       selectCharacter
-      CNT=`expr $CNT + 1`
-      if [ $CNT -eq 500 ]; then
+      CNT=`expr $CNT + 1`;
+      if [ $CNT -eq 1000 ]; then
            echo "everthing used"
            exit 0;
       fi
   done
+
+  echo "tried $((CNT - 1)) character(s)"
 
 # --------------------------------------------------------------------------- #
 # SELECT COLORS
