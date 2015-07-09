@@ -221,6 +221,7 @@
          wc -c`                                           # COUNT CHARACTERS
    CNT=`expr $CNT + 1`
   done
+        echo "$UTFCHAR ($CHARINFO)"
         echo "WORD: $WORD"
         echo "${MESSAGE}"; echo ${FREEZE}.png
 
