@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-#. 150617_single-letter.sh generates an image of a letter                     #
-#. and posts it to a twitter account                                          #
+#. 150704_single-letter.sh generates an image of a letter                     #
+#. and posts it to a twitter account (COLOR VERSION)                          #
 
 #.---------------------------------------------------------------------------.#
 #. Copyright (C) 2015 LAFKON/Christoph Haag                                   #
@@ -19,7 +19,6 @@
 #.                                                                            #
 #.---------------------------------------------------------------------------.
 
-
 # --------------------------------------------------------------------------- #
 # GENERAL ...
 # --------------------------------------------------------------------------- #
@@ -27,9 +26,9 @@
   source lib/sh/headless.functions
 
   TMPDIR=.
-  COLORS="ff0000|00ff00|ff00ff|00ffff"
-  COLORS="EEEEEE|0ECCAA|888888|111111|DDDDDD"
   FF=fontforge
+  COLORS="EEEEEE|0ECCAA|888888|111111|DDDDDD"
+  WORDS="lib/words/*/*.txt"
   BRK=$RANDOM
   TMPID=TMP$RANDOM
   HTML=$TMPDIR/$TMPID.html
@@ -96,19 +95,23 @@
 
   function selectCharacter(){
     CHARACTER=`cat $NAMLIST            | # ALL AVAILABLE
-               grep -v 0020            | # NO SPACE
-               grep "x[0-9][0-9][0-9]" | # CERTAIN RANGE ONLY
+               grep -v 0020            | # IGNORE SPACE
                shuf -n 1`                # RANDOM ONE
     NAME=${IDBASE}`echo $CHARACTER | md5sum | cut -c 1-4`
   }
 
+# --------------------------------------------------------------------------- #
 # MAKE SURE CHARACTER HAS NOT BEEN USED
 # --------------------------------------------------------------------------- #
   CNT=1; while [ `ls FREEZE/${NAME}.* 2>/dev/null | wc -l` -gt 0 ] &&
-               [ $CNT -le 10 ]
+               [ $CNT -le 500 ]
    do
       selectCharacter
-      CNT=`expr $CNT + 1`; if [ $CNT -eq 10 ]; then exit 0; fi
+      CNT=`expr $CNT + 1`
+      if [ $CNT -eq 500 ]; then
+           echo "everthing used"
+           exit 0;
+      fi
   done
 
 # --------------------------------------------------------------------------- #
@@ -116,7 +119,6 @@
 # --------------------------------------------------------------------------- #
   C1=`echo $COLORS | sed 's/|/\n/g' | shuf -n 1`
   C2=`echo $COLORS | sed 's/|/\n/g' | grep -v $C1 | shuf -n 1`
-
 
 # --------------------------------------------------------------------------- #
 # WRITE HTML
@@ -167,38 +169,69 @@
             recode u2/x2..dump-with-names | # GET INFO VIA RECODE
             tail -n 1                     | # SELECT LAST LINE
             tr -s ' '                     | # SQUEEZE CONSECUTIVE SPACES
-            cut -d " " -f 3-`               # SELECT 3-X FIELD
+            cut -d " " -f 3-              | # SELECT 3-X FIELD
+            sed 's/(.*)//'`                 # REMOVE BETWEEN BRACKETS
+  HASHINFO=`echo $CHARINFO | sed 's/^[ \t]*/#/' | sed 's/ / #/g'`
+  HASHSPEC=`echo $FONTSPEC | sed 's/^[ \t]*/#/' | sed 's/ / #/g'`
   INFOPLUS=`grep  "${FONTFAMILY}:" README.txt`
-      ATTW=`echo $INFOPLUS | cut -d ":" -f 2`
-      if [ `echo $ATTW | wc -c` -gt 1 ]; then
-            ATTW="#librefont $FONTSPEC by $ATTW"; fi
-     FHREF="→ http://fontain.org"`echo $INFOPLUS | cut -d ":" -f 3`
+    FHREF1="http://fontain.org"`echo $INFOPLUS | cut -d ":" -f 3`
+     SHREF="http://"`echo $INFOPLUS | cut -d ":" -f 5`
+    AUTHOR=`echo $INFOPLUS | cut -d ":" -f 4`
+         A=`echo -e "→ \n[>]\n—\n|→ \n|\n//" | shuf -n 1`  
 
-  M1="$UTFCHAR ( $CHARINFO ) →  $ATTW $FHREF"
-  M2="$UTFCHAR →  $ATTW $FHREF"
-  M3="$UTFCHAR ( $CHARINFO ) $FHREF"
-  M4="${FHREF}"
-  M5="$ATTW"
-  MESSAGE=$M1
-  MCHK=`echo $MESSAGE                       | #
-        sed -e "s,http.\?://.* ,$URLFOO ,g" | #
-        wc -c`
-  CNT=1
+  WORD=`grep -h "^$UTFCHAR" $WORDS | # FIND WORD STARTING WITH CHARACTER
+        sed -n '/^.\{4\}/p'        | # 4 OR LONGER
+        sed '/^.\{12\}/d'          | # 12 OR SHORTER
+        grep -v [0-9]              | # REMOVE IF THERE ARE NUMBERS
+        grep -v [[:punct:]]        | # REMOVE IF THERE ARE NON LETTERS
+        shuf -n 1`                   # SELECT RANDOM LINE
+
+  if [ `echo $WORD | wc -c` -lt 1 ]; then
+  WORD=`grep -h "$UTFCHAR" $WORDS | # FIND WORD CONTAINING CHARACTER
+        sed -n '/^.\{4\}/p'       | # 4 OR LONGER
+        sed '/^.\{12\}/d'         | # 12 OR SHORTER
+        grep -v [0-9]             | # REMOVE IF THERE ARE NUMBERS
+        grep -v [[:punct:]]       | # REMOVE IF THERE ARE NON LETTERS
+        shuf -n 1`                  # SELECT RANDOM LINE
+  else
+   FHREF2="$FHREF1/#${WORD}"
+   M4="${HASHSPEC} by $AUTHOR ($UTFCHAR)"
+   M5="${UTFCHAR} like $WORD $A #librefont  $FONTSPEC"
+   M6="${UTFCHAR} like #$WORD $A  $FONTSPEC $A $FHREF2"
+  fi
+  if [ `echo $WORD | wc -c` -gt 1 ]; then
+   FHREF2="$FHREF1/#${WORD}"
+  else
+   if [ `echo $UTFCHAR | grep -v [[:punct:]] | wc -c` -gt 0 ]; then
+   FHREF2="$FHREF1/#"`printf "$UTFCHAR%.0s" {1..20}`
+   M5="${UTFCHAR}  $A   $FHREF2"
+   M6="#${UTFCHAR} ($CHARINFO) $A $FHREF2"
+   else
+   FHREF2="${FHREF1}/#@"$((RANDOM%190+60))
+   M4="$UTFCHAR $A #librefont ${FONTSPEC} by $AUTHOR ($SHREF)"
+   M5=`printf "$UTFCHAR%.0s" {1..20}`" $A $HASHSPEC"
+   M6=`printf "$UTFCHAR%.0s" {1..30}`" ($CHARINFO) $A $FONTSPEC"
+   fi
+  fi
+  M1="${FONTSPEC} $A $UTFCHAR ($CHARINFO) $A $FHREF2"
+  M2="$UTFCHAR ($HASHINFO) $A  $FONTSPEC"
+  M3="$UTFCHAR $A $FONTSPEC $A  $FHREF2"
+
+# --------------------------------------------------------------------------- #
+# SELECT MESSAGE
+# --------------------------------------------------------------------------- #
+  MCHK=200; CNT=1
   while [ $MCHK -gt 116 ]; do
-    MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5} | # DISPLAY ALL
-             sed "s/$BRK/\n/g"                           | # REBREAK
-             awk '{ print length($0) " " $0; }'          | # SHOW LINE LENGTH
-             sort -r -n                                  | # SORT ACCORDING TO LENGTH
-             cut -d ' ' -f 2-                            | # REMOVE LINE INFO
-             head -n $CNT | tail -n 1`                     # SELECT NEXT
-    MCHK=`echo $MESSAGE                                  | # DISPLAY MESSAGE
-          sed -e "s,http.\?://.* ,$URLFOO ,g"            | # REPLACE URL WITH FOO 
-          wc -c`                                           # COUNT CHARACTERS
-    CNT=`expr $CNT + 1`
+   MESSAGE=`echo ${M2}${BRK}${M3}${BRK}${M4}${BRK}${M5}${BRK}${M6}${BRK}${M1} | #
+            sed "s/$BRK/\n/g"                           | # REBREAK
+            shuf -n 1`                                    # SELECT RANDOM
+   MCHK=`echo $MESSAGE                                  | # DISPLAY MESSAGE
+         sed -e "s,http.\?://.* ,$URLFOO ,g"            | # REPLACE URL WITH FOO 
+         wc -c`                                           # COUNT CHARACTERS
+   CNT=`expr $CNT + 1`
   done
-        echo ${MESSAGE}
-        echo ${FREEZE}.png
-        # echo $MCHK
+        echo "WORD: $WORD"
+        echo "${MESSAGE}"; echo ${FREEZE}.png
 
 # --------------------------------------------------------------------------- #
 # UPLOAD
