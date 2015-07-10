@@ -27,6 +27,7 @@
 
   TMPDIR=.
   FF=fontforge
+  COLORS="0ECCAA|888888|111111|DDDDDD"
   WORDS="lib/words/*/*.txt"
   BRK=$RANDOM
   TMPID=TMP$RANDOM
@@ -43,6 +44,7 @@
                sed ":a;N;\\$!ba;s/\n/$BRK/g" | # REMOVE ALL LINEBREAKS
                sed 's/Font:/\n&/g'           | # PUT ON SEPARATE LINES
                grep ".fonts/fontain"         | # SELECT FONTAIN FONTS
+               grep -v "simple-print"        | # IGNORE THIS FONT
                shuf -n 1`                      # SELECT RANDOM LINE
 
 # --------------------------------------------------------------------------- #
@@ -114,21 +116,26 @@
   done
 
 # --------------------------------------------------------------------------- #
+# SELECT COLORS
+# --------------------------------------------------------------------------- #
+  C1=EEEEEE
+  C2=`echo $COLORS | sed 's/|/\n/g' | grep -v $C1 | shuf -n 1`
+
+# --------------------------------------------------------------------------- #
 # WRITE HTML
 # --------------------------------------------------------------------------- #
   echo "<html><head><style>"                                         >  $HTML
-  echo "body { background-color:#FFFFFF;"                            >> $HTML
-  echo "margin: 0px 0px 0px 0px;"                                    >> $HTML
-  echo "border-left:  2px solid #000000;"                            >> $HTML
-  echo "border-right: 2px solid #000000;}"                           >> $HTML
+  echo "body {background-color:#$C1;"                                >> $HTML
+  echo "margin: 0px 0px 2% 0px;"                                    >> $HTML
+  echo "}"                                                           >> $HTML
   echo "@font-face  { font-family:'thefont';"                        >> $HTML
   echo "src:url('$TMPTTF')format('truetype');"                       >> $HTML
-  echo "}table{width:100%;height:100%;"                              >> $HTML
-  echo "font-family:'thefont';font-size:180px;"                      >> $HTML
-  echo "color:#000000;}"                                             >> $HTML
-  echo "table.letter{height:0px;}"                                   >> $HTML
+  echo "}table{width:100%;height:100%;margin-top:0%;"                >> $HTML
+  echo "font-family:'thefont';font-size:380px;"                      >> $HTML
+  echo "color:#$C2;}"                                                >> $HTML
+  echo "table.letter{height:0px;padding:0px 0px 0px 0px}"            >> $HTML
   echo "</style></head><body><table><tr>"                            >> $HTML
-  echo "<td valign=\"middle\">"                                      >> $HTML
+  echo "<td valign=\"bottom\">"                                      >> $HTML
   echo "<table class=\"letter\"><tr>"                                >> $HTML
   echo "<td align=\"center\">"                                       >> $HTML
   echo $CHARACTER | recode u2/x2..h0                                 >> $HTML
