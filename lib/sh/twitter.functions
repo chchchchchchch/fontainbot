@@ -54,6 +54,7 @@
     if [ `echo $TWEET | grep '"errors":' | wc -l` -gt 0 ]
      then
           echo "There was an error. Deleting $MEDIA"
+          echo $TWEET
           rm $MEDIA
     fi
 
