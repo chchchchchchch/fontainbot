@@ -35,6 +35,7 @@
   TMPTTF=$TMPDIR/$TMPID.ttf
   TMPSVG=$TMPDIR/$TMPID.svg
   ISFS="-inkscape-font-specification"
+  ZW=`echo "&#8203;" | recode h0..utf-8`
   URLFOO=XXXXXXXXXXXXXXXXXXXXXX
 
 # --------------------------------------------------------------------------- #
@@ -171,7 +172,9 @@
 # --------------------------------------------------------------------------- #
 # COMPOSE MESSAGE
 # --------------------------------------------------------------------------- #
-  UTFCHAR=`echo $CHARACTER | recode u2/x2..utf-8`
+  UTFCHAR=`echo $CHARACTER     | # DISABLE CHARACTER
+           recode u2/x2..utf-8 | # HEX TO UTF
+           sed "s/./&$ZW/g"`     # ADD ZERO WIDTH TO DISABLE TWITTER SHORTCUT
   CHARINFO=`echo $CHARACTER               | # SHOW CHARACTER
             recode u2/x2..dump-with-names | # GET INFO VIA RECODE
             tail -n 1                     | # SELECT LAST LINE
