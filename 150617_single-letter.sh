@@ -132,11 +132,11 @@
   echo "@font-face  { font-family:'thefont';"                        >> $HTML
   echo "src:url('$TMPTTF')format('truetype');"                       >> $HTML
   echo "}table{width:100%;height:100%;margin-top:0%;"                >> $HTML
-  echo "font-family:'thefont';font-size:380px;"                      >> $HTML
+  echo "font-family:'thefont';font-size:280px;"                      >> $HTML
   echo "color:#$C2;}"                                                >> $HTML
   echo "table.letter{height:0px;padding:0px 0px 0px 0px}"            >> $HTML
   echo "</style></head><body><table><tr>"                            >> $HTML
-  echo "<td valign=\"bottom\">"                                      >> $HTML
+  echo "<td valign=\"middle\">"                                      >> $HTML
   echo "<table class=\"letter\"><tr>"                                >> $HTML
   echo "<td align=\"center\">"                                       >> $HTML
   echo $CHARACTER | recode u2/x2..h0                                 >> $HTML
@@ -241,7 +241,7 @@
 # UPLOAD
 # --------------------------------------------------------------------------- #
 
-  tweet $MESSAGE ${FREEZE}.png
+# tweet $MESSAGE ${FREEZE}.png
 
 
 # --------------------------------------------------------------------------- #
