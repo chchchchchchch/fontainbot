@@ -3,6 +3,7 @@
 # RUSSIAN ROULETTE: PULL THE TRIGGER, SHOT NOT EVERY TIME    #
 # ---------------------------------------------------------- #
   SELF=`basename $0`
+   NOT="letterset|letterset"
 
   if [ `ps a         | # LIST PROCESSES
         grep $SELF   | # LOOK FOR YOURSELF
@@ -23,9 +24,10 @@
         sleep $SLEEPTIME
         echo "TIME:   "`date "+%d.%m.%Y %T"`
 
-        TRIGGERTHIS=`ls ./1*.sh    | # LIST ALL SCRIPTS
-                     grep -v $SELF | # IGNORE YOURSELF
-                     shuf -n 1`      # SELECT ONE RANDOM
+        TRIGGERTHIS=`ls ./1*.sh      | # LIST ALL SCRIPTS
+                     grep -v $SELF   | # IGNORE YOURSELF
+                     egrep -v "$NOT" | # IGNORE
+                     shuf -n 1`        # SELECT ONE RANDOM
         echo "SCRIPT: "`basename $TRIGGERTHIS`
         $TRIGGERTHIS
         cd - > /dev/null 2>&1
