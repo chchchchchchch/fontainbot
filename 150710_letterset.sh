@@ -343,7 +343,7 @@
 # UPLOAD!
 # --------------------------------------------------------------------------- #
   if [ "X$TWTRPRT" == "Xerror" ]; then
-        echo "There was an error, do not uplod"
+        echo "There was an error, do not upload"
   else
   ftpUpload $IMG $NEWHTML ${FREEZE}.pdf ${FREEZE}.svg
   fi
