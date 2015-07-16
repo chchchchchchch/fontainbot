@@ -3,7 +3,7 @@
 
   TMPDIR=.
    TMPID=$TMPDIR/TMP$RANDOM
-
+   TWURL=/usr/local/bin/twurl
 
 # --------------------------------------------------------------------------- #
 # GET TWITTER MENTIONS
@@ -19,7 +19,7 @@
 # --------------------------------------------------------------------------- #
 # GET TWITTER MENTIONS
 # --------------------------------------------------------------------------- #
-  twurl /1.1/statuses/mentions_timeline.json > ${TMPID}.timeline.txt
+  $TWURL /1.1/statuses/mentions_timeline.json > ${TMPID}.timeline.txt
 
 # --------------------------------------------------------------------------- #
 # CHECK MENTIONS AND DO WHATEVER IS NECESSARY
