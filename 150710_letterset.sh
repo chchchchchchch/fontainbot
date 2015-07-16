@@ -279,8 +279,12 @@
          sed 's/[ \t]$//'                 | # REMOVE SPACES AT END
          tee`
  fi
-  REPLY=`echo -e "@${RPNM}: ""$REPLY"`
- #REPLY=`echo -e "$REPLY"`
+   REPLY=`echo -e "$REPLY"    | #
+          sed 's/./&\n/g'     | #
+          grep -v [[:punct:]] | #
+          sed ':a;N;$!ba;s/\n//g'`
+   REPLY=`echo -e "@${RPNM}: ""$REPLY"`
+
 
   OPTIONSPLUS="&in_reply_to_status_id=$RPID"
   MESSAGE="$REPLY … $A ${FURL}#${NAME}"
