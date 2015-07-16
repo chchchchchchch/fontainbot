@@ -71,7 +71,7 @@
             ./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
 
             rm ${TMPID}.*  # CLEAN UP
-            echo "----------------------------"
+          # echo "----------------------------"
       fi
   done
 
