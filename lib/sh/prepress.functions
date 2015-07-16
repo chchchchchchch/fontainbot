@@ -1,0 +1,31 @@
+
+
+ function pdfxgs() {
+
+
+          PDF=$1
+          cp $PDF tmp.pdf
+          gs                                     \
+            -o $PDF                             \
+            -sDEVICE=pdfwrite                    \
+            -sColorConversionStrategy=Gray       \
+            -sProcessColorModel=DeviceGray       \
+            -sColorImageDownsampleThreshold=2    \
+            -sColorImageDownsampleType=Bicubic   \
+            -sColorImageResolution=300           \
+            -sGrayImageDownsampleThreshold=2     \
+            -sGrayImageDownsampleType=Bicubic    \
+            -sGrayImageResolution=300            \
+            -sMonoImageDownsampleThreshold=2     \
+            -sMonoImageDownsampleType=Bicubic    \
+            -sMonoImageResolution=1200           \
+            -dSubsetFonts=true                   \
+            -dEmbedAllFonts=true                 \
+            -dAutoRotatePages=/None              \
+            -sCannotEmbedFontPolicy=Error        \
+            -c ".setpdfwrite<</NeverEmbed[ ]>> setdistillerparams" \
+            -f tmp.pdf > /dev/null
+          rm tmp.pdf
+
+ }
+
