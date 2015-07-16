@@ -14,7 +14,7 @@
                 cut -d "/" -f 2- | # REMOVE FIRST FIELD
                 rev`               # REVERT
    cd $PROJECTROOT
-   BSHS=`ls *.sh | egrep "letterset|letterset"`
+   BSHS=`ls ./*.sh | egrep "letterset|letterset"`
 
 # --------------------------------------------------------------------------- #
 # GET TWITTER MENTIONS
@@ -62,11 +62,11 @@
             sed 's,http:\\\\/\\\\/t.co\\\\/.*",,g'    | # REMOVE IMAGE URL
             tee > ${TMPID}.txt
 
-            echo "TIME:   "`date "+%d.%m.%Y %T"`      
+          # echo "TIME:   "`date "+%d.%m.%Y %T"`      
             TRIGGERTHIS=`echo $BSHS     | #
                          sed 's/ /\n/g' | #
                          shuf -n 1`
-            echo "SCRIPT: "`basename $TRIGGERTHIS`
+          # echo "SCRIPT: "`basename $TRIGGERTHIS`
 
             ./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
 
