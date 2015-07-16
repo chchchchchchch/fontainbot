@@ -275,8 +275,6 @@
          -draw "rectangle 0,0 $W,$H" \
          ${TMPID}.gif
 
-  cp ${TMPID}.gif debug.gif
-
   OPTIONSPLUS="&in_reply_to_status_id=$RPID"
   MESSAGE="$REPLY … $A ${FURL}#${NAME}"
 
