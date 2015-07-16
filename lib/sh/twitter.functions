@@ -35,7 +35,11 @@
               grep "media_id_string"      | #
               cut -d ":" -f 2 | cut -d "\"" -f 2`
 
-          TEXT=`echo "$*" | rev | cut -d " " -f 2- | rev`
+          TEXT=`echo "$*"        | #
+                rev              | #
+                cut -d " " -f 2- | #
+                rev              | #
+                sed 's/&/+/g'`     # PREVENT ERROR (SUPERHACK!!)
           if [ `echo "$*"      | #
                 sed 's/ /\n/g' | #
                 wc -l` -gt 1   ]; then
@@ -52,7 +56,7 @@
           OPTIONS=$OPTIONS$OPTIONSPLUS
     fi
 
-  # echo "$TWURL \"$UPDATE\" -d \"$OPTIONS\""
+ #  echo "$TWURL \"$UPDATE\" -d \"$OPTIONS\""
     TWEET=`$TWURL "$UPDATE" -d "$OPTIONS"`
 
     if [ `echo $TWEET | grep '"errors":' | wc -l` -gt 0 ]
