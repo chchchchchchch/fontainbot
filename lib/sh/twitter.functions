@@ -20,7 +20,7 @@
   
     UPDATE="/1.1/statuses/update.json"
 
-    MEDIA=`echo $*         | #
+    MEDIA=`echo "$*"       | #
            rev             | #
            cut -d " " -f 1 | #
            rev`  
@@ -35,8 +35,8 @@
               grep "media_id_string"      | #
               cut -d ":" -f 2 | cut -d "\"" -f 2`
 
-          TEXT=`echo $* | rev | cut -d " " -f 2- | rev`
-          if [ `echo $*        | #
+          TEXT=`echo "$*" | rev | cut -d " " -f 2- | rev`
+          if [ `echo "$*"      | #
                 sed 's/ /\n/g' | #
                 wc -l` -gt 1   ]; then
                 OPTIONS="media_ids=${MEDIAIDS}&status=${TEXT}"
@@ -52,9 +52,6 @@
           OPTIONS=$OPTIONS$OPTIONSPLUS
     fi
 
-
-  
-  # $TWURL "$UPDATE" -d "$OPTIONS"  > /dev/null 2>&1
   # echo "$TWURL \"$UPDATE\" -d \"$OPTIONS\""
     TWEET=`$TWURL "$UPDATE" -d "$OPTIONS"`
 
