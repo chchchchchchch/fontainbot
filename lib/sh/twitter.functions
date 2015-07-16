@@ -63,7 +63,8 @@
      then
           echo "There was an error. Deleting $MEDIA"
           echo $TWEET
-          rm $MEDIA
+        # rm $MEDIA
+          rm ${MEDIA%%.*}.*
     fi
 
   }
