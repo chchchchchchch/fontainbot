@@ -35,8 +35,6 @@
               grep "media_id_string"      | #
               cut -d ":" -f 2 | cut -d "\"" -f 2`
 
-    echo $MEDIAIDS
-
           TEXT=`echo "$*"        | #
                 rev              | #
                 cut -d " " -f 2- | #
