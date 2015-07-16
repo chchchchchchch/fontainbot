@@ -57,7 +57,7 @@
           OPTIONS="$OPTIONS$OPTIONSPLUS"
     fi
 
- #  echo "$TWURL \"$UPDATE\" -d \"$OPTIONS\""
+    echo "$TWURL \"$UPDATE\" -d \"$OPTIONS\""
     TWEET=`$TWURL "$UPDATE" -d "$OPTIONS"`
 
     if [ `echo $TWEET | grep '"errors":' | wc -l` -gt 0 ]
