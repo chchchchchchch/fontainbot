@@ -48,7 +48,7 @@
 
 
   if [ `ls FREEZE/${IDBASE}* 2>/dev/null | wc -l` -gt 0 ]; then
-        echo "export exists";
+        echo "export for ${IDBASE} exists";
   else
 # --------------------------------------------------------------------------- #
 # COLLECT INPUT
@@ -234,6 +234,15 @@
 # --------------------------------------------------------------------------- #
 # TWITTER UPLOAD
 # --------------------------------------------------------------------------- #
+  INFO=`identify -format "%wx%h" "${FREEZE}.png"[0]`
+     W=`echo $INFO | cut -d "x" -f 1`
+     H=`echo $INFO | cut -d "x" -f 2`
+  convert ${FREEZE}.png \
+         -stroke black -strokewidth 3 \
+         -fill none \
+         -draw "rectangle 0,0 $W,$H" \
+         ${TMPID}.gif
+
   if [ `echo "$OTXT" | wc -w` -gt 3 ];then
   REPLY=`echo -e "$OTXT "                 | # 
          sed -e "s,.\?\?http.\?://.* ,,g" | #
@@ -257,23 +266,15 @@
          sed -e "s,.\?\?http.\?://.* ,,g" | #
          sed "s/ //g"                     | # REMOVE SPACES
          sed "s/./& /g"                   | # ADD SPACES AFTER EACH CHARACTER
-         fold -s -w 1                     | # BREAK AFTER EACH CHARACTER
+         fold -s -w 4                     | # BREAK AFTER EACH CHARACTER
          shuf                             | # SELECT FIRST LINE
          sed ':a;N;$!ba;s/\n/ /g'         | # REMOVE ALL LINEBREAKS
          cut -c 1-40                      | #
          tr -s ' '                        | #
-         sed 's/[ \t]$//'`                  # REMOVE SPACES AT END
+         sed 's/[ \t]$//'                 | # REMOVE SPACES AT END
+         tee`
  fi
   REPLY=`echo -e "@${RPNM}: ""$REPLY"`
-
-  INFO=`identify -format "%wx%h" "${FREEZE}.png"[0]`
-     W=`echo $INFO | cut -d "x" -f 1`
-     H=`echo $INFO | cut -d "x" -f 2`
-  convert ${FREEZE}.png \
-         -stroke black -strokewidth 3 \
-         -fill none \
-         -draw "rectangle 0,0 $W,$H" \
-         ${TMPID}.gif
 
   OPTIONSPLUS="&in_reply_to_status_id=$RPID"
   MESSAGE="$REPLY … $A ${FURL}#${NAME}"
