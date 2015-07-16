@@ -6,7 +6,7 @@
    TWURL=/usr/local/bin/twurl
 
 # --------------------------------------------------------------------------- #
-# GET TWITTER MENTIONS
+# CHANGE TO DIRECTORY
 # --------------------------------------------------------------------------- #
 
    PROJECTROOT=`readlink -f $0   | # ABSOLUTE PATH
