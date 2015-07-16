@@ -65,6 +65,7 @@
           echo $TWEET
         # rm $MEDIA
           rm ${MEDIA%%.*}.*
+          export TWTRPRT="error"
     fi
 
   }
