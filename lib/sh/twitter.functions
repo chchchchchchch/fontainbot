@@ -48,7 +48,7 @@
                 OPTIONS="media_ids=${MEDIAIDS}"
           fi
     else
-          TEXT=`echo "$*"        | #
+          TEXT=`ech
                 sed 's/&/+/g'`     # PREVENT ERROR (SUPERHACK!!)
           OPTIONS="status=${TEXT}"
     fi
@@ -62,10 +62,10 @@
 
     if [ `echo $TWEET | grep '"errors":' | wc -l` -gt 0 ]
      then
-          echo "There was an error. Deleting $MEDIA"
+          echo "There was an error. Deleting ${MEDIA%%.*}"
           echo $TWEET
-        # rm $MEDIA
           rm ${MEDIA%%.*}.*
+          echo "$TWURL \"$UPDATE\" -d \"$OPTIONS\""
           export TWTRPRT="error"
     fi
 
