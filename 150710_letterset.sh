@@ -241,7 +241,7 @@
          -stroke black -strokewidth 3 \
          -fill none \
          -draw "rectangle 0,0 $W,$H" \
-         ${TMPID}.gif
+         ${FREEZE}.gif
 
   if [ `echo "$OTXT" | wc -w` -gt 3 ];then
   REPLY=`echo -e "$OTXT "                 | # 
@@ -285,8 +285,8 @@
   OPTIONSPLUS="&in_reply_to_status_id=$RPID"
   MESSAGE="$REPLY … $A ${FURL}#${NAME}"
 
-# echo  "$MESSAGE" ${TMPID}.gif
-  tweet "$MESSAGE" ${TMPID}.gif
+# echo  "$MESSAGE" ${FREEZE}.gif
+  tweet "$MESSAGE" ${FREEZE}.gif
 
 # --------------------------------------------------------------------------- #
 # FREEZE UPLOAD
