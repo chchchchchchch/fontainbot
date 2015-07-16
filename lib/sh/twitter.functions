@@ -48,12 +48,13 @@
                 OPTIONS="media_ids=${MEDIAIDS}"
           fi
     else
-          TEXT="$*"
+          TEXT=`echo "$*"        | #
+                sed 's/&/+/g'`     # PREVENT ERROR (SUPERHACK!!)
           OPTIONS="status=${TEXT}"
     fi
 
     if [ `echo $OPTIONSPLUS | wc -c` -gt 1 ]; then
-          OPTIONS=$OPTIONS$OPTIONSPLUS
+          OPTIONS="$OPTIONS$OPTIONSPLUS"
     fi
 
  #  echo "$TWURL \"$UPDATE\" -d \"$OPTIONS\""
