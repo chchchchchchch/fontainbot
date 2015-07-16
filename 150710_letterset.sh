@@ -29,7 +29,6 @@
   SOURCE=EDIT/150710_letterset.svg
   TMPDIR=. ; TMPID=$TMPDIR/TMP${RANDOM%9}
   TARGET=${TMPID}.svg
-  cp $SOURCE $TARGET
   SPACEFOO=S${RANDOM}P
   FF=fontforge
   ISFS="-inkscape-font-specification"
@@ -53,6 +52,7 @@
 # --------------------------------------------------------------------------- #
 # COLLECT INPUT
 # --------------------------------------------------------------------------- #
+  cp $SOURCE $TARGET
   ALLINFO=`identify -list font           | # LIST ALL FONTS
            sed ":a;N;\\$!ba;s/\n/$BRK/g" | # REMOVE ALL LINEBREAKS
            sed 's/Font:/\n&/g'           | # PUT ON SEPARATE LINES
