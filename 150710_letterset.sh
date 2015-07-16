@@ -262,19 +262,25 @@
          sed 's/[ \t]$//'                 | # REMOVE SPACES AT END
          sed "s/ ${A}$//"`                  # REMOVE LAST ARROW
   else
+# REPLY=`echo -e "$OTXT "                 | # WITH SPACE AT END (URL RM HACK)
+#        sed -e "s,.\?\?http.\?://.* ,,g" | #
+#        sed "s/ //g"                     | # REMOVE SPACES
+#        sed "s/./& /g"                   | # ADD SPACES AFTER EACH CHARACTER
+#        fold -s -w 4                     | # BREAK AFTER EACH CHARACTER
+#        shuf                             | # SELECT FIRST LINE
+#        sed ':a;N;$!ba;s/\n/ /g'         | # REMOVE ALL LINEBREAKS
+#        cut -c 1-40                      | #
+#        tr -s ' '                        | #
+#        sed 's/[ \t]$//'                 | # REMOVE SPACES AT END
+#        tee`
   REPLY=`echo -e "$OTXT "                 | # WITH SPACE AT END (URL RM HACK)
-         sed -e "s,.\?\?http.\?://.* ,,g" | #
-         sed "s/ //g"                     | # REMOVE SPACES
-         sed "s/./& /g"                   | # ADD SPACES AFTER EACH CHARACTER
-         fold -s -w 4                     | # BREAK AFTER EACH CHARACTER
-         shuf                             | # SELECT FIRST LINE
-         sed ':a;N;$!ba;s/\n/ /g'         | # REMOVE ALL LINEBREAKS
          cut -c 1-40                      | #
          tr -s ' '                        | #
          sed 's/[ \t]$//'                 | # REMOVE SPACES AT END
          tee`
  fi
   REPLY=`echo -e "@${RPNM}: ""$REPLY"`
+ #REPLY=`echo -e "$REPLY"`
 
   OPTIONSPLUS="&in_reply_to_status_id=$RPID"
   MESSAGE="$REPLY … $A ${FURL}#${NAME}"
@@ -342,7 +348,7 @@
 # FOR THE LOGS
 # --------------------------------------------------------------------------- #
   echo "RE TO:  $RPID"
-  echo "TWEET:  ${MESSAGE};"
+  echo "TWEET:  ${MESSAGE}"
   echo "MEDIA:  ${FREEZE}.png"
 
 
