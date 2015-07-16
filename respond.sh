@@ -19,13 +19,13 @@
 # --------------------------------------------------------------------------- #
 # GET TWITTER MENTIONS
 # --------------------------------------------------------------------------- #
-# twurl /1.1/statuses/mentions_timeline.json > ${TMPID}.timeline.txt
+  twurl /1.1/statuses/mentions_timeline.json > ${TMPID}.timeline.txt
 
 # --------------------------------------------------------------------------- #
 # CHECK MENTIONS AND DO WHATEVER IS NECESSARY
 # --------------------------------------------------------------------------- #
-# for MENTION in `cat ${TMPID}.timeline.txt             | #
-  for MENTION in `cat EDIT/150716_mentionstimeline.json | #
+# for MENTION in `cat EDIT/150716_mentionstimeline.json | #
+  for MENTION in `cat ${TMPID}.timeline.txt             | #
                   sed 's/{"created_at/\n{"created_at/g' | #
                   sed 's/{"created_at/\n{"created_at/g' | #
                   sed 's/ /XXX/g'`

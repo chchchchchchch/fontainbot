@@ -278,8 +278,8 @@
   OPTIONSPLUS="&in_reply_to_status_id=$RPID"
   MESSAGE="$REPLY … $A ${FURL}#${NAME}"
 
-  echo  "$MESSAGE" ${TMPID}.gif
-# tweet "$MESSAGE" ${TMPID}.gif
+# echo  "$MESSAGE" ${TMPID}.gif
+  tweet "$MESSAGE" ${TMPID}.gif
 
 # --------------------------------------------------------------------------- #
 # FREEZE UPLOAD
