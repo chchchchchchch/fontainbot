@@ -172,6 +172,8 @@
 # --------------------------------------------------------------------------- #
 # COMPOSE MESSAGE
 # --------------------------------------------------------------------------- #
+  UT8CHAR=`echo $CHARACTER     | # DISABLE CHARACTER
+           recode u2/x2..utf-8`  # HEX TO UTF
   UTFCHAR=`echo $CHARACTER     | # DISABLE CHARACTER
            recode u2/x2..utf-8 | # HEX TO UTF
            sed "s/./&$ZW/g"`     # ADD ZERO WIDTH TO DISABLE TWITTER SHORTCUT
@@ -189,7 +191,7 @@
     AUTHOR=`echo $INFOPLUS | cut -d ":" -f 4`
          A=`echo -e "→ \n[>]\n—\n|→ \n|\n//" | shuf -n 1`  
 
-  WORD=`grep -h "^$UTFCHAR" $WORDS | # FIND WORD STARTING WITH CHARACTER
+  WORD=`grep -h "^$UT8CHAR" $WORDS | # FIND WORD STARTING WITH CHARACTER
         sed -n '/^.\{4\}/p'        | # 4 OR LONGER
         sed '/^.\{12\}/d'          | # 12 OR SHORTER
         grep -v [0-9]              | # REMOVE IF THERE ARE NUMBERS
@@ -197,7 +199,7 @@
         shuf -n 1`                   # SELECT RANDOM LINE
 
   if [ `echo $WORD | wc -c` -lt 1 ]; then
-  WORD=`grep -h "$UTFCHAR" $WORDS | # FIND WORD CONTAINING CHARACTER
+  WORD=`grep -h "$UT8CHAR" $WORDS | # FIND WORD CONTAINING CHARACTER
         sed -n '/^.\{4\}/p'       | # 4 OR LONGER
         sed '/^.\{12\}/d'         | # 12 OR SHORTER
         grep -v [0-9]             | # REMOVE IF THERE ARE NUMBERS
