@@ -317,9 +317,7 @@
   CLO=`echo -e "l\nc\nr\nl\nr" | shuf -n 1`
   CLS=`echo -e "sa\nsb\nsc\nsd" | shuf -n 1`
   CLASSDEF="class=\"g $CLS $CLO\""
-  HSVG=${NAME}.svg
-  HPDF=${NAME}.pdf
-  HIMG=`basename $IMG`
+  HSVG=${NAME}.svg;HPDF=${NAME}.pdf;HIMG=`basename $IMG`
   echo "<table $CLASSDEF id=\"${NAME}\"><tr><td colspan=\"2\"> \
         <a href=\"$HPDF\"><img src=\"$HIMG\"/></a></td></tr><tr> \
         <td class=\"t l\"><tt>.<a href=\"$HSVG\">svg</a> (EDITABLE TEXT)
