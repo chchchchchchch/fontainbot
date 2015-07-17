@@ -81,8 +81,7 @@
 # FINITO
 # --------------------------------------------------------------------------- #
   if [ -f tweet.yes ]; then echo -e "\n\n" ; rm tweet.yes ; fi
-
-  rm ${TMPID}.timeline.txt
+  if [ -f ${TMPID}.timeline.txt ]; then rm ${TMPID}.timeline.txt fi
   cd - > /dev/null 2>&1
 
 
