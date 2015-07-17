@@ -359,15 +359,14 @@
   echo "RE TO:  $RPID"
   echo "TWEET:  ${MESSAGE}"
   echo "MEDIA:  ${FREEZE}.png"
-  echo "--"
+  echo "----------------------------"
+
+  touch tweet.yes
 
 # --------------------------------------------------------------------------- #
 # CLEAN UP
 # --------------------------------------------------------------------------- #
   rm ${TMPID}* $NEWHTML
-
-  export TWEETED="yes"
-
   fi
 
 

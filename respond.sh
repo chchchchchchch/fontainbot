@@ -67,23 +67,22 @@
             sed 's,http:\\\\/\\\\/t.co\\\\/.*",,g'    | # REMOVE IMAGE URL
             tee > ${TMPID}.txt
 
-          # echo "TIME:   "`date "+%d.%m.%Y %T"`      
             TRIGGERTHIS=`echo $BSHS     | #
                          sed 's/ /\n/g' | #
                          shuf -n 1`
-          # echo "SCRIPT: "`basename $TRIGGERTHIS`
 
-            ./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
+           ./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
 
             rm ${TMPID}.*  # CLEAN UP
-          # echo "----------------------------"
       fi
   done
 
 # --------------------------------------------------------------------------- #
 # FINITO
 # --------------------------------------------------------------------------- #
-  if [ "X$TWEETED" == "Xyes" ]; then echo ; fi
+  if [ -f tweet.yes ]; then echo ; rm tweet.yes ; fi
+
+  rm ${TMPID}.timeline.txt
   cd - > /dev/null 2>&1
 
 
