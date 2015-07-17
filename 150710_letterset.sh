@@ -47,7 +47,8 @@
 
 
   if [ `ls FREEZE/${IDBASE}* 2>/dev/null | wc -l` -gt 0 ]; then
-        echo "export for ${IDBASE} exists";
+       #echo "export for ${IDBASE} exists";
+        sleep 0
   else
 # --------------------------------------------------------------------------- #
 # COLLECT INPUT
@@ -365,6 +366,7 @@
 # --------------------------------------------------------------------------- #
   rm ${TMPID}* $NEWHTML
 
+  export TWEETED="yes"
 
   fi
 
