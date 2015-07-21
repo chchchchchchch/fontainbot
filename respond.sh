@@ -46,15 +46,15 @@
             sed 's/^"//'                           | # REMOVE FIRST QUOTE
             sed 's/"$//'                           | # REMOVE LAST QUOTE
             tee`
+            TWTO=`echo $TWTO                       | #
+                  cut -d ":" -f 2                  | #
+                  cut -d "\"" -f 2`                  #
 
       if [ "X$TWTO" != "Xfontainbot" ]; then
        if [ `echo "$TWXT"                          | #
              grep "^@fontainbot:"                  | #
              wc -l` -gt 0 ];then                     #
 
-            TWTO=`echo $TWTO                       | #
-                  cut -d ":" -f 2                  | #
-                  cut -d "\"" -f 2`                  #
             TWID=`echo $TWID                       | #
                   cut -d ":" -f 2                  | #
                    cut -d "," -f 1`                  #
@@ -73,9 +73,9 @@
                          sed 's/ /\n/g' | #
                          shuf -n 1`
 
-           ./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
+          #./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
 
-            rm ${TMPID}.*  # CLEAN UP
+           rm ${TMPID}.*  # CLEAN UP
        fi
       fi
   done
