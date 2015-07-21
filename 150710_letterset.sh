@@ -9,8 +9,10 @@
         sed 's/\\\u200b//g' | #
         recode h0..utf-8`     #
   OTXT=`echo -e "$TEXT"`
-  TEXT=`echo -e "$TEXT "   |#
-        sed -e "s,.\?\?http.\?://.* ,,g"` #
+  TEXT=`echo -e "$TEXT "                 | # START WITH TEXT
+        sed -e "s,.\?\?http.\?://.* ,,g" | # REMOVE URLS
+        sed 's/^[ \t]*//'                | # REMOVE LEADING BLANKS
+        sed 's/[ \t]$//'`                  # REMOVE CLOSING BLANKS
 
   if [ `echo "$TEXT" | wc -c` -gt 13 ] ||
      [ `echo "$TEXT" | grep "[.?!]$" | wc -l` -gt 0 ]
@@ -18,6 +20,7 @@
   CNT=0;while [ $CNT -lt 120 ];do
     TEXT="$TEXT$PAD$TEXT";CNT=`echo "$TEXT" | wc -c`;done 
   TEXT=`echo "$TEXT" | cut -c 1-120`
+
 
 # --------------------------------------------------------------------------- #
 # GENERAL STUFF
