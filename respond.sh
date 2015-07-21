@@ -47,9 +47,10 @@
             sed 's/"$//'                           | # REMOVE LAST QUOTE
             tee`
 
-      if [ `echo "$TWXT"                           | #
-            grep "^@fontainbot:"                   | #
-            wc -l` -gt 0 ];then                      #
+      if [ "X$TWTO" != "Xfontainbot" ]; then
+       if [ `echo "$TWXT"                          | #
+             grep "^@fontainbot:"                  | #
+             wc -l` -gt 0 ];then                     #
 
             TWTO=`echo $TWTO                       | #
                   cut -d ":" -f 2                  | #
@@ -75,6 +76,7 @@
            ./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
 
             rm ${TMPID}.*  # CLEAN UP
+       fi
       fi
   done
 
