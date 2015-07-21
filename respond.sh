@@ -73,7 +73,7 @@
                          sed 's/ /\n/g' | #
                          shuf -n 1`
 
-          #./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
+           ./150710_letterset.sh $TWTO $TWID ${TMPID}.txt
 
            rm ${TMPID}.*  # CLEAN UP
        fi
