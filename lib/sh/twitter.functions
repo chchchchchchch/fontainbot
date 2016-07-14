@@ -48,7 +48,10 @@
                 OPTIONS="media_ids=${MEDIAIDS}"
           fi
     else
-          TEXT=`ech
+          TEXT=`echo "$*"        | #
+                rev              | #
+                cut -d " " -f 2- | #
+                rev              | #
                 sed 's/&/+/g'`     # PREVENT ERROR (SUPERHACK!!)
           OPTIONS="status=${TEXT}"
     fi
